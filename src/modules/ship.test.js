@@ -1,7 +1,8 @@
 /* global expect, test */
 
-import ship from "./ship";
+import Ship from "./ship";
 
-test("sunk", () => {
-    expect(ship(6)).toBe("sunk");
+test("Ship creates a object of type ship", () => {
+    const testShip = new Ship("test", 2);
+    expect(Object.prototype.isPrototypeOf.call(Ship.prototype, testShip)).toBe(true);
 })
