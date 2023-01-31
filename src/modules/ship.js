@@ -1,3 +1,10 @@
-export default function ship(value) {
-    return value > 3 ? "sunk" : "not sunk";
+export default function Ship(name, length) {
+    this.name = name;
+    this.length = length;
+    this.hit = 0;
+    this.sunk = false;
+}
+
+Ship.prototype.hit = function hit() {
+    this.hit += 1;
 }
