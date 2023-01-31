@@ -5,7 +5,9 @@ export default function Ship(name, length) {
 }
 
 Ship.prototype.hit = function hit() {
-    this.hitCount += 1;
+    if(!this.isSunk()){
+        this.hitCount += 1;
+    }
 }
 
 Ship.prototype.isSunk = function isSunk() {
