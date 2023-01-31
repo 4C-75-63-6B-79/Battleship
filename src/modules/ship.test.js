@@ -18,5 +18,5 @@ test("Ship hit more than length ship sunk", () => {
     const testShip = new Ship("test", 2);
     testShip.hit();
     testShip.hit();
-    expect(testShip.sunk()).toBe(true);
+    expect(testShip.isSunk()).toBe(true);
 })
