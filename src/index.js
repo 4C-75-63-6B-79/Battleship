@@ -1,3 +1,3 @@
-import './style.css';
+import "./style.css";
 
-console.log('battleship');
+console.log("battleship");
