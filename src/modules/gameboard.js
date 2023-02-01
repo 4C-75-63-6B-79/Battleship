@@ -36,3 +36,8 @@ GameBoard.prototype.receiveAttack = function receiveAttack(coords) {
         this.board[coords[0]][coords[1]] = 1; // 1 is for hit
     }
 }
+
+// assumes all the ships have been placed on the board
+GameBoard.prototype.allShipSunk = function allShipSunk() {
+    return Object.keys(this.ships).every(key => this.ships[key].isSunk());
+}
