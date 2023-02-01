@@ -42,3 +42,8 @@ test("takes attack at given coordinates does nothing if that coords is already a
     testGameBoard.receiveAttack(attackCoords);
     expect(testGameBoard.board[attackCoords[0]][attackCoords[1]] === valueBeforeSecondAttack).toBe(true);
 });
+
+test("Gameboard return false if all ship not sunk", () => {
+    const testGameBoard = new GameBoard();
+    expect(testGameBoard.allShipSunk()).toBe(false);
+})
