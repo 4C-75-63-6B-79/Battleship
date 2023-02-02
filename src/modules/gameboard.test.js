@@ -22,7 +22,7 @@ test("places the given ship at the sent coordinates", () => {
 test("takes attack at given coordinates marks them 0 if miss", () => {
     const testGameBoard = new GameBoard();
     const attackCoords = [2,5];
-    testGameBoard.receiveAttack(attackCoords);
+    expect(testGameBoard.receiveAttack(attackCoords)).toBe(false)
     expect(testGameBoard.board[attackCoords[0]][attackCoords[1]] === 0).toBe(true);
 });
 
@@ -30,7 +30,7 @@ test("takes attack at given coordinates marks them 1 if hit ship", () => {
     const testGameBoard = new GameBoard();
     const attackCoords = [0,1];
     testGameBoard.placeShip("destroyer", [[0,0], [0,1]]);
-    testGameBoard.receiveAttack(attackCoords);
+    expect(testGameBoard.receiveAttack(attackCoords)).toBe(true);
     expect(testGameBoard.board[attackCoords[0]][attackCoords[1]] === 1).toBe(true);
 });
 
