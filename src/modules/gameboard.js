@@ -31,10 +31,14 @@ GameBoard.prototype.receiveAttack = function receiveAttack(coords) {
     const valueAtCoords = this.board[coords[0]][coords[1]];
     if( valueAtCoords === null) {
         this.board[coords[0]][coords[1]] = 0; // 0 is for miss
-    } else if(Object.prototype.isPrototypeOf.call(Ship.prototype, valueAtCoords)) {
+        return false;
+    } 
+    if(Object.prototype.isPrototypeOf.call(Ship.prototype, valueAtCoords)) {
         valueAtCoords.hit();
         this.board[coords[0]][coords[1]] = 1; // 1 is for hit
+        return true;
     }
+    return null; // done to please the linter
 }
 
 // assumes all the ships have been placed on the board
