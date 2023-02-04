@@ -6,11 +6,12 @@ export default function FriendlyWater() {
 
 FriendlyWater.prototype.placeShip = function placeShip(ship, coords) {
     if(!coords.every(ele => this.board[ele[0]][ele[1]] === null)) {
-        return;
+        return false;
     }
     coords.forEach(ele => {
         this.board[ele[0]][ele[1]] = ship;
     });
+    return true;
 }
 
 FriendlyWater.prototype.receiveAttack = function receiveAttack(coord) {
