@@ -1,4 +1,4 @@
-export default function randomCoordGenerator(numOfCoordinates) {
+function randomShipCoordGenerator(numOfCoordinates) {
     function getRandomCoords() {
         return [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
     }
@@ -33,3 +33,22 @@ export default function randomCoordGenerator(numOfCoordinates) {
     return coords;
 }
 
+export default function placePlayerShips(player) {   
+    function placeShip(name, len) {
+        let coords = randomShipCoordGenerator(len);
+        let isPlacedShip = player.placeShip(name, coords);
+        while(!isPlacedShip) {
+            coords = randomShipCoordGenerator(len);
+            isPlacedShip = player.placeShip(name, coords);
+        }
+    }
+
+    const ships = [ 
+        ["carrier", 5],
+        ["battleship", 4],
+        ["cruiser", 3],
+        ["submarine", 3],
+        ["destroyer", 2],
+     ];
+     ships.forEach(ship => placeShip(ship[0], ship[1]));
+}
