@@ -16,7 +16,7 @@ export default function Player(name) {
 }
 
 Player.prototype.placeShip = function placeShip(name, coord) {
-    this.friendlyWater.placeShip(this.ships[name], coord);
+    return this.friendlyWater.placeShip(this.ships[name], coord);
 }
 
 Player.prototype.makeAttack = function makeAttack() {
