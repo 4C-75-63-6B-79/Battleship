@@ -6,7 +6,7 @@ import Ship from "./ship";
 test("placeShip function places ship at the given coords", () => {
     const testPlayer = new Player("name");
     const testShip = new Ship("destroyer", 2);
-    testPlayer.placeShip("destroyer", [[0,0], [0,1]]);
+    expect(testPlayer.placeShip("destroyer", [[0,0], [0,1]])).toBe(true);
     expect(testPlayer.friendlyWater.board[0][0]).toStrictEqual(testShip);
 });
 
