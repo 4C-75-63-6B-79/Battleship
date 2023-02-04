@@ -1,0 +1,35 @@
+export default function randomCoordGenerator(numOfCoordinates) {
+    function getRandomCoords() {
+        return [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
+    }
+
+    function coordsValid(coord) {
+        return (coord[0] >= 0 && coord[0] <= 9 && coord[1] >= 0 && coord[1] <= 9);
+    }
+
+    const coords = [getRandomCoords()];
+    const direction = Math.floor(Math.random() * 2); // 0 for x and 1 for y
+
+    while(coords.length < numOfCoordinates) {
+        let first = coords[0];
+        let last = coords[coords.length - 1];
+
+        if(direction === 0) {
+            first = [first[0],first[1]-1];
+            last = [last[0],last[1]+1];
+        } else if(direction === 1) {
+            first = [first[0]-1,first[1]];
+            last = [last[0]+1,last[1]];
+        }
+
+        if(coordsValid(first)) {
+            coords.unshift(first);
+        }
+        if(coords.length === numOfCoordinates) break;
+        if(coordsValid(last)) {
+            coords.push(last);
+        }
+    }
+    return coords;
+}
+
