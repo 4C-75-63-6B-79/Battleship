@@ -9,6 +9,17 @@ const gameControl = (function gameControl() {
         player1 = new Player("user");
         player2 = new Player("computer");
     }
+
+    function playerUserMakesMove(coord) {
+        const isPlayer2Hit = player2.receiveAttak(coord);
+        player1.markAttack(isPlayer2Hit, coord);
+    }
+
+    function playerComputerMakesMove() {
+        const coord = player2.makeAttack();
+        const isPlayer1hit = player1.receiveAttak(coord);
+        player2.markAttack(isPlayer1hit, coord);
+    }
     
     function randomShipCoordGenerator(numOfCoordinates) {
         function getRandomCoords() {
