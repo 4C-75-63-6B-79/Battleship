@@ -27,6 +27,14 @@ Player.prototype.receiveAttack = function receiveAttack(coord) {
     return this.friendlyWater.receiveAttack(coord);
 }
 
+Player.prototype.markAttack = function markAttack(otherPlayerShipHit, coord) {
+    if(otherPlayerShipHit) {
+        this.enemyWater.markHit(coord);
+    } else {
+        this.enemyWater.markMiss(coord);
+    }
+}
+
 Player.prototype.isNewShipSunk = function isNewShipSunk() {
     const sunkShip = Object.keys(this.ships).find(key => this.ships[key].isSunk());
     if(sunkShip) {
