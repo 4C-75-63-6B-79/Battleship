@@ -28,6 +28,19 @@ test("receive attack function returns true when there is a successful hit", () =
     expect(testPlayer.receiveAttack([0,1])).toBe(true);
 });
 
+test("markAttack function marks the enemy water gird with 1 if success hit", () => {
+    const testPlayer = new Player("name");
+    const attackCoord = testPlayer.makeAttack();
+    testPlayer.markAttack(true, attackCoord);
+    expect(testPlayer.enemyWater.board[attackCoord[0]][attackCoord[1]]).toBe(1);
+});
+
+test("markAttack function marks the enemy water gird with 0 if not success hit", () => {
+    const testPlayer = new Player("name");
+    const attackCoord = testPlayer.makeAttack();
+    testPlayer.markAttack(false, attackCoord);
+    expect(testPlayer.enemyWater.board[attackCoord[0]][attackCoord[1]]).toBe(0);
+})
 
 test("function allShipSunk returns false when all ships are not sunk", () => {
     const testPlayer = new Player("name");
