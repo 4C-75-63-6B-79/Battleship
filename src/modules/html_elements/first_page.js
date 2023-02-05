@@ -33,10 +33,15 @@ const firstPage = (function initFirstPage() {
 
     // }
 
+    function startButtonClicked() {
+        console.log("start button clicked");
+    }
+
     function createMainContent() {
         const main = document.querySelector("main");
         const startButton = document.createElement("button");
         startButton.textContent = "Start Game";
+        startButton.addEventListener("click", startButtonClicked);
 
         main.appendChild(startButton);
     }
