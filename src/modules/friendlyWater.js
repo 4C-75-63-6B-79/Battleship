@@ -1,7 +1,7 @@
 import Ship from "./ship";
 
 export default function FriendlyWater() {
-    this.board = Array.from({length: 10}, () => Array.from({length: 8}, () => null));
+    this.board = Array.from({length: 10}, () => Array.from({length: 10}, () => null));
 }
 
 FriendlyWater.prototype.placeShip = function placeShip(ship, coords) {
