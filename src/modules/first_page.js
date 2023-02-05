@@ -1,4 +1,4 @@
-import odinLogo from "../assets/images/odin_logo.svg";
+// import odinLogo from "../assets/images/odin_logo.svg";
 
 const firstPage = (function initFirstPage() {
 
@@ -21,6 +21,24 @@ const firstPage = (function initFirstPage() {
         const body = document.querySelector("body");
         const main = document.createElement("main");
         body.appendChild(main);
+    }
+
+    // function createFormInputs({id, labelText, type, pattern, minLength, maxLength}) {
+    //     const para = document.createElement("p");
+    //     const label = document.createElement("label");
+    //     label.setAttribute("for", id);
+    //     const span = document.createElement('span');
+    //     span.textContent = labelText;
+
+
+    // }
+
+    function createMainContent() {
+        const main = document.querySelector("main");
+        const startButton = document.createElement("button");
+        startButton.textContent = "Start Game";
+
+        main.appendChild(startButton);
     }
 
     function makeFooter() {
@@ -49,6 +67,7 @@ const firstPage = (function initFirstPage() {
         makeHeader();
         makeHeaderContent();
         makeMain();
+        createMainContent();
         makeFooter();
         createFooterContent();
     }
