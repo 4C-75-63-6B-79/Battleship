@@ -59,22 +59,37 @@ const secondPage = (function secondPage() {
         main.appendChild(gridContainer);
     }
 
-    function highlightBoxes(currentBoxCoordinates, currentAxis, iterationTimes) {
-        const adder = currentAxis === "x" ? 1 : 10;
-        for(let i=0; i<iterationTimes; i += 1) {
-            const coordinates =  Number(currentBoxCoordinates) + adder * i < 10 ? `0${Number(currentBoxCoordinates) + adder * i}` : Number(currentBoxCoordinates) + adder * i;
-            const box = document.querySelector(`[data-coordinates = "${coordinates}"]`);
-            box.style.backgroundColor = "#aaaaaa";
-        }
+    function generateCoordinates(currentBoxCoordinates) {
+        const currentCoordinate = [ Number(currentBoxCoordinates.charAt(0)), Number(currentBoxCoordinates.charAt(1)) ]
+        const coordinates = [ currentCoordinate ];
+        const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
+        const shipLength = 5;
+        for(let i=0; i<shipLength; i += 1) {
+            if(currentAxis === "x") {
+                coordinates.push( [ currentCoordinate[0], currentCoordinate[1] + i ] );
+            } else if(currentAxis === "y") {
+                coordinates.push( [ currentCoordinate[0] + i, currentCoordinate[1] ] )
+            }
+        } 
+        return coordinates;
     }
 
-    function removeHighlightBoxes(currentBoxCoordinates, currentAxis, iterationTimes) {
-        const adder = currentAxis === "x" ? 1 : 10;
-        for(let i=0; i<iterationTimes; i += 1) {
-            const coordinates =  Number(currentBoxCoordinates) + adder * i < 10 ? `0${Number(currentBoxCoordinates) + adder * i}` : Number(currentBoxCoordinates) + adder * i;
-            const box = document.querySelector(`[data-coordinates = "${coordinates}"]`);
+    function highlightBoxes(currentBoxCoordinates) {
+        const coordinates = generateCoordinates(currentBoxCoordinates);
+        coordinates.forEach(coords => {
+            const dataCoordinates = `${coords[0]}${coords[1]}`;
+            const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
+            box.style.backgroundColor = "#aaaaaa";
+        });
+    }
+
+    function removeHighlightBoxes(currentBoxCoordinates) {
+        const coordinates = generateCoordinates(currentBoxCoordinates);
+        coordinates.forEach(coords => {
+            const dataCoordinates = `${coords[0]}${coords[1]}`;
+            const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
             box.style.backgroundColor = "#ffffff";
-        }
+        });
     }
 
     function mouseOverBox(event) {
