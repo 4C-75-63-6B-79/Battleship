@@ -1,5 +1,7 @@
 // import odinLogo from "../assets/images/odin_logo.svg";
 
+import loadSecondPage from "./place_ships_page";
+
 const firstPage = (function initFirstPage() {
 
     function makeHeader() {
@@ -35,6 +37,7 @@ const firstPage = (function initFirstPage() {
 
     function startButtonClicked() {
         console.log("start button clicked");
+        loadSecondPage();
     }
 
     function createMainContent() {
