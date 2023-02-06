@@ -59,11 +59,57 @@ const secondPage = (function secondPage() {
         main.appendChild(gridContainer);
     }
 
+    function highlightBoxes(currentBoxCoordinates, currentAxis, iterationTimes) {
+        const adder = currentAxis === "x" ? 1 : 10;
+        for(let i=0; i<iterationTimes; i += 1) {
+            const coordinates =  Number(currentBoxCoordinates) + adder * i < 10 ? `0${Number(currentBoxCoordinates) + adder * i}` : Number(currentBoxCoordinates) + adder * i;
+            const box = document.querySelector(`[data-coordinates = "${coordinates}"]`);
+            box.style.backgroundColor = "#aaaaaa";
+        }
+    }
+
+    function removeHighlightBoxes(currentBoxCoordinates, currentAxis, iterationTimes) {
+        const adder = currentAxis === "x" ? 1 : 10;
+        for(let i=0; i<iterationTimes; i += 1) {
+            const coordinates =  Number(currentBoxCoordinates) + adder * i < 10 ? `0${Number(currentBoxCoordinates) + adder * i}` : Number(currentBoxCoordinates) + adder * i;
+            const box = document.querySelector(`[data-coordinates = "${coordinates}"]`);
+            box.style.backgroundColor = "#ffffff";
+        }
+    }
+
+    function mouseOverBox(event) {
+        const box = event.target;
+        const dataCoordinates = box.getAttribute("data-coordinates");
+        const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
+        if(currentAxis === "x" && 10 - Number(dataCoordinates.charAt(1)) >= 5) {
+            highlightBoxes(dataCoordinates, currentAxis, 5);
+        } else if(currentAxis === "y" && 10 - Number(dataCoordinates.charAt(0)) >= 5) {
+            highlightBoxes(dataCoordinates, currentAxis, 5);
+        } else {
+            box.style.backgroundColor = "#ffaaaa";
+            box.style.cursor = "not-allowed";
+        }
+    }
+
+    function mouseOutBox(event) {
+        const box = event.target;
+        const dataCoordinates = box.getAttribute("data-coordinates");
+        const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
+        if(currentAxis === "x" && 10 - Number(dataCoordinates.charAt(1)) >= 5) {
+            removeHighlightBoxes(dataCoordinates, currentAxis, 5);
+        } else if(currentAxis === "y" && 10 - Number(dataCoordinates.charAt(0)) >= 5) {
+            removeHighlightBoxes(dataCoordinates, currentAxis, 5);
+        } else {
+            box.style.backgroundColor = "#ffffff";
+            box.style.cursor = "default";
+        }
+    }
+
     function makeGrid() {
         const gridContainer = document.querySelector("div.gridContainer");
         for(let i=0; i<10; i += 1) {
             for(let j=0; j<10; j += 1) {
-                const div = makeDiv({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, event: "mouseover"});
+                const div = makeDiv({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, events: ["mouseover", "mouseout"], callBackFunctions: [mouseOverBox, mouseOutBox] });
                 gridContainer.appendChild(div);
             }
         }
