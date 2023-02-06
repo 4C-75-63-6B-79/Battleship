@@ -1,3 +1,5 @@
+import { makeDiv } from "./html_create_functions";
+
 const secondPage = (function secondPage() {
 
     function removeClassFromHeader() {
@@ -42,11 +44,31 @@ const secondPage = (function secondPage() {
         main.appendChild(axisButton);
     }
 
+    function makeGridContainer() {
+        const main = document.querySelector("main");
+        const gridContainer = document.createElement("div");
+        gridContainer.setAttribute("class", "gridContainer");
+        main.appendChild(gridContainer);
+    }
+
+    function makeGrid() {
+        const gridContainer = document.querySelector("div.gridContainer");
+        for(let i=0; i<10; i += 1) {
+            for(let j=0; j<10; j += 1) {
+                const div = makeDiv({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, event: "mouseover"});
+                gridContainer.appendChild(div);
+            }
+        }
+
+    }
+
     function loadSecondPage() {
         removeClassFromHeader();
         removeAllContentMain();
         makeWhichShipToBePlacedHeader();
         makeAxisChoiceButton();
+        makeGridContainer();
+        makeGrid();
     }
 
     return {
