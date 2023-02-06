@@ -84,7 +84,7 @@ const gameControl = (function gameControl() {
     }
 })();
 
-const {initPlayers, playerUserMakesMove, playersComputerMakesMove, placePlayerShips} = gameControl;
+const {initPlayers, playerUserMakesMove, playerComputerMakesMove, placePlayerShips} = gameControl;
 
-export {initPlayers, playerUserMakesMove, playersComputerMakesMove, placePlayerShips} ;
+export {initPlayers, playerUserMakesMove, playerComputerMakesMove, placePlayerShips} ;
 
