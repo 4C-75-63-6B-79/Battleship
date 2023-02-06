@@ -1,4 +1,4 @@
-function makeDiv({id, classNames, textContent, title, dataAttributeName, dataAttributeValue, event, callBackFunction}) {
+function makeDiv({id, classNames, textContent, title, dataAttributeName, dataAttributeValue, events, callBackFunctions}) {
     const div = document.createElement("div");
     if(id) {
         div.setAttribute("id", id);
@@ -16,8 +16,8 @@ function makeDiv({id, classNames, textContent, title, dataAttributeName, dataAtt
     if(dataAttributeValue && dataAttributeName) {
         div.setAttribute(`data-${dataAttributeName}`, dataAttributeValue);
     }
-    if(event && callBackFunction) {
-        div.addEventListener(event, callBackFunction);
+    if(events && callBackFunctions && events.length === callBackFunctions.length) {
+        events.forEach((event, i) => div.addEventListener(event, callBackFunctions[i]));
     }
     return div;
 }
