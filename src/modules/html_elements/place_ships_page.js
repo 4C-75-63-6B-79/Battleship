@@ -48,6 +48,14 @@ const secondPage = (function secondPage() {
         const main = document.querySelector("main");
         const gridContainer = document.createElement("div");
         gridContainer.setAttribute("class", "gridContainer");
+
+        // setting the gird using javascript will remove later
+        gridContainer.style.display = "grid";
+        gridContainer.style.gridTemplateRows = "repeat(10, 30px)";
+        gridContainer.style.gridTemplateColumns = "repeat(10, 30px)";
+        gridContainer.style.gap = "5px";
+        // remove things above here.
+
         main.appendChild(gridContainer);
     }
 
