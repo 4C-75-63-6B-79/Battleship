@@ -1,6 +1,7 @@
 // import odinLogo from "../assets/images/odin_logo.svg";
 
 import loadSecondPage from "./place_ships_page";
+import { initPlayers } from "../object/game_control";
 
 const firstPage = (function initFirstPage() {
 
@@ -36,8 +37,8 @@ const firstPage = (function initFirstPage() {
     // }
 
     function startButtonClicked() {
-        console.log("start button clicked");
         loadSecondPage();
+        initPlayers();
     }
 
     function createMainContent() {
