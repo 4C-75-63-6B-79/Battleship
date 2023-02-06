@@ -23,9 +23,11 @@ const secondPage = (function secondPage() {
         const currentAxis = button.getAttribute("data-currentAxis");
         if(currentAxis === "x") {
             button.textContent = "Place Vessel in X Axis";
+            button.setAttribute("title", "Place Vessel in X Axis");
             button.setAttribute("data-currentAxis", "y");
         } else if (currentAxis === "y"){
             button.textContent = "Place Vessel in Y Axis";
+            button.setAttribute("title", "Place Vessel in Y Axis");
             button.setAttribute("data-currentAxis", "x");
         }
     }
