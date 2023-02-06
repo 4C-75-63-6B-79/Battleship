@@ -84,10 +84,23 @@ const secondPage = (function secondPage() {
     }
 
     function isCurrentBoxValidForShip(target) {
-        const dataCoordinates = target.getAttribute("data-coordinates");
+        const targetDataCoordinates = target.getAttribute("data-coordinates");
         const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
         const shipLength = 5;
-        return (currentAxis === "x" && 10 - Number(dataCoordinates.charAt(1)) >= shipLength) || (currentAxis === "y" && 10 - Number(dataCoordinates.charAt(0)) >= shipLength) ;
+        const isEnoughNumberOfBoxes = (currentAxis === "x" && 10 - Number(targetDataCoordinates.charAt(1)) >= shipLength) || (currentAxis === "y" && 10 - Number(targetDataCoordinates.charAt(0)) >= shipLength) ;
+        if(!isEnoughNumberOfBoxes) {
+            return false;
+        }
+        const coordinates = getCoordinates(targetDataCoordinates);       
+        const boxesHaveShipPlaced = coordinates.every( coords => {
+            const dataCoordinates = `${coords[0]}${coords[1]}`;
+            const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
+            if(box.getAttribute("data-ship") === "") {
+                return false;
+            }
+            return true;
+        });
+        return boxesHaveShipPlaced;
     }
 
     function mouseOverBox(event) {
@@ -112,11 +125,28 @@ const secondPage = (function secondPage() {
         }
     }
 
+    function boxClicked(event) {
+        const clickedBox = event.target;
+        const currentBoxCoordinates = clickedBox.getAttribute("data-coordinates");
+        if(isCurrentBoxValidForShip(clickedBox)) {
+            changeBoxesBackground("#aaeeaa", currentBoxCoordinates);
+            const coordinates = getCoordinates(currentBoxCoordinates);
+            coordinates.forEach( coords => {
+                const dataCoordinates = `${coords[0]}${coords[1]}`;
+                const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
+                box.setAttribute("data-ship", "");
+                box.removeEventListener("mouseover", mouseOverBox);
+                box.removeEventListener("mouseout", mouseOutBox);
+                box.removeEventListener("click", boxClicked);
+            });
+        }
+    }
+
     function makeGrid() {
         const gridContainer = document.querySelector("div.gridContainer");
         for(let i=0; i<10; i += 1) {
             for(let j=0; j<10; j += 1) {
-                const div = makeDiv({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, events: ["mouseover", "mouseout"], callBackFunctions: [mouseOverBox, mouseOutBox] });
+                const div = makeDiv({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, events: ["mouseover", "mouseout", "click"], callBackFunctions: [mouseOverBox, mouseOutBox, boxClicked] });
                 gridContainer.appendChild(div);
             }
         }
