@@ -18,9 +18,33 @@ const secondPage = (function secondPage() {
         main.appendChild(h2);
     }
 
+    function axisButtonClicked(event) {
+        const button = event.target;
+        const currentAxis = button.getAttribute("data-currentAxis");
+        if(currentAxis === "x") {
+            button.textContent = "Place Vessel in X Axis";
+            button.setAttribute("data-currentAxis", "y");
+        } else if (currentAxis === "y"){
+            button.textContent = "Place Vessel in Y Axis";
+            button.setAttribute("data-currentAxis", "x");
+        }
+    }
+
+    function makeAxisChoiceButton() {
+        const main = document.querySelector("main");
+        const axisButton = document.createElement("button");
+        axisButton.setAttribute("title", "Place Vessel in Y Axis");
+        axisButton.setAttribute("data-currentAxis", "x");
+        axisButton.textContent = "Place Vessel in Y Axis";
+        axisButton.addEventListener("click", axisButtonClicked);
+        main.appendChild(axisButton);
+    }
+
     function loadSecondPage() {
         removeClassFromHeader();
         removeAllContentMain();
+        makeWhichShipToBePlacedHeader();
+        makeAxisChoiceButton();
     }
 
     return {
