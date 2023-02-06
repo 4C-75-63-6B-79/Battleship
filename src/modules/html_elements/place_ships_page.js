@@ -74,21 +74,12 @@ const secondPage = (function secondPage() {
         return coordinates;
     }
 
-    function highlightBoxes(currentBoxCoordinates) {
+    function changeBoxesBackground(color, currentBoxCoordinates) {
         const coordinates = getCoordinates(currentBoxCoordinates);
         coordinates.forEach(coords => {
             const dataCoordinates = `${coords[0]}${coords[1]}`;
             const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
-            box.style.backgroundColor = "#aaaaaa";
-        });
-    }
-
-    function removeHighlightBoxes(currentBoxCoordinates) {
-        const coordinates = getCoordinates(currentBoxCoordinates);
-        coordinates.forEach(coords => {
-            const dataCoordinates = `${coords[0]}${coords[1]}`;
-            const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
-            box.style.backgroundColor = "#ffffff";
+            box.style.backgroundColor = color;
         });
     }
 
@@ -103,7 +94,7 @@ const secondPage = (function secondPage() {
         const box = event.target;
         const currentBoxCoordinates = box.getAttribute("data-coordinates");
         if(isCurrentBoxValidForShip(box)) {
-            highlightBoxes(currentBoxCoordinates);
+            changeBoxesBackground("#aaaaaa", currentBoxCoordinates);
         } else {
             box.style.backgroundColor = "#ffaaaa";
             box.style.cursor = "not-allowed";
@@ -114,7 +105,7 @@ const secondPage = (function secondPage() {
         const box = event.target;
         const currentBoxCoordinates = box.getAttribute("data-coordinates");
         if(isCurrentBoxValidForShip(box)) {
-        removeHighlightBoxes(currentBoxCoordinates);
+            changeBoxesBackground("#ffffff", currentBoxCoordinates);
         } else {
             box.style.backgroundColor = "#ffffff";
             box.style.cursor = "default";
