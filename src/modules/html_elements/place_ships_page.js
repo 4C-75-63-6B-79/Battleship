@@ -12,7 +12,7 @@ const secondPage = (function secondPage() {
 
     function makeWhichShipToBePlacedHeader() {
         const main = document.querySelector("main");
-        const h2 = document.querySelector("h2");
+        const h2 = document.createElement("h2");
         h2.setAttribute("title", "Chief, Place Your Carrier");
         h2.textContent = "Chief, Place your Carrier";
         main.appendChild(h2);
