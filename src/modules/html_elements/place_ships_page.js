@@ -59,7 +59,7 @@ const secondPage = (function secondPage() {
         main.appendChild(gridContainer);
     }
 
-    function generateCoordinates(currentBoxCoordinates) {
+    function getCoordinates(currentBoxCoordinates) {
         const currentCoordinate = [ Number(currentBoxCoordinates.charAt(0)), Number(currentBoxCoordinates.charAt(1)) ]
         const coordinates = [ currentCoordinate ];
         const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
@@ -75,7 +75,7 @@ const secondPage = (function secondPage() {
     }
 
     function highlightBoxes(currentBoxCoordinates) {
-        const coordinates = generateCoordinates(currentBoxCoordinates);
+        const coordinates = getCoordinates(currentBoxCoordinates);
         coordinates.forEach(coords => {
             const dataCoordinates = `${coords[0]}${coords[1]}`;
             const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
@@ -84,7 +84,7 @@ const secondPage = (function secondPage() {
     }
 
     function removeHighlightBoxes(currentBoxCoordinates) {
-        const coordinates = generateCoordinates(currentBoxCoordinates);
+        const coordinates = getCoordinates(currentBoxCoordinates);
         coordinates.forEach(coords => {
             const dataCoordinates = `${coords[0]}${coords[1]}`;
             const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
@@ -92,14 +92,18 @@ const secondPage = (function secondPage() {
         });
     }
 
+    function isCurrentBoxValidForShip(target) {
+        const dataCoordinates = target.getAttribute("data-coordinates");
+        const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
+        const shipLength = 5;
+        return (currentAxis === "x" && 10 - Number(dataCoordinates.charAt(1)) >= shipLength) || (currentAxis === "y" && 10 - Number(dataCoordinates.charAt(0)) >= shipLength) ;
+    }
+
     function mouseOverBox(event) {
         const box = event.target;
-        const dataCoordinates = box.getAttribute("data-coordinates");
-        const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
-        if(currentAxis === "x" && 10 - Number(dataCoordinates.charAt(1)) >= 5) {
-            highlightBoxes(dataCoordinates, currentAxis, 5);
-        } else if(currentAxis === "y" && 10 - Number(dataCoordinates.charAt(0)) >= 5) {
-            highlightBoxes(dataCoordinates, currentAxis, 5);
+        const currentBoxCoordinates = box.getAttribute("data-coordinates");
+        if(isCurrentBoxValidForShip(box)) {
+            highlightBoxes(currentBoxCoordinates);
         } else {
             box.style.backgroundColor = "#ffaaaa";
             box.style.cursor = "not-allowed";
@@ -108,12 +112,9 @@ const secondPage = (function secondPage() {
 
     function mouseOutBox(event) {
         const box = event.target;
-        const dataCoordinates = box.getAttribute("data-coordinates");
-        const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
-        if(currentAxis === "x" && 10 - Number(dataCoordinates.charAt(1)) >= 5) {
-            removeHighlightBoxes(dataCoordinates, currentAxis, 5);
-        } else if(currentAxis === "y" && 10 - Number(dataCoordinates.charAt(0)) >= 5) {
-            removeHighlightBoxes(dataCoordinates, currentAxis, 5);
+        const currentBoxCoordinates = box.getAttribute("data-coordinates");
+        if(isCurrentBoxValidForShip(box)) {
+        removeHighlightBoxes(currentBoxCoordinates);
         } else {
             box.style.backgroundColor = "#ffffff";
             box.style.cursor = "default";
