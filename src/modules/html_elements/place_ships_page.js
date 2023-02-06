@@ -10,6 +10,14 @@ const secondPage = (function secondPage() {
         main.replaceChildren();
     }
 
+    function makeWhichShipToBePlacedHeader() {
+        const main = document.querySelector("main");
+        const h2 = document.querySelector("h2");
+        h2.setAttribute("title", "Chief, Place Your Carrier");
+        h2.textContent = "Chief, Place your Carrier";
+        main.appendChild(h2);
+    }
+
     function loadSecondPage() {
         removeClassFromHeader();
         removeAllContentMain();
