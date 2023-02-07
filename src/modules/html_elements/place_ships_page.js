@@ -13,7 +13,8 @@ const secondPage = (function secondPage() {
         let name; let len;
         function updateShip() {
             const ship = ships.pop();
-            [ name, len ] = ship;
+            name = ship.name;
+            len = ship.len;
         }
         function getName() { return name; }
         function geLength() { return len; }
@@ -36,7 +37,8 @@ const secondPage = (function secondPage() {
 
     function makeShipToBePlacedHeader() {
         const main = document.querySelector("main");
-        const h2 = makeElement({ elementType: "h2", title: "Chief, Place Your Carrier", textContent: "Chief, Place your Carrier"});
+        const textContent = `Chief, Place Your ${  currentShip.getName().charAt(0).toUpperCase()  }${ currentShip.getName().substr(1) }`;
+        const h2 = makeElement({ elementType: "h2", title: textContent, textContent});
         main.appendChild(h2);
     }
 
@@ -78,7 +80,7 @@ const secondPage = (function secondPage() {
         const currentCoordinate = [ Number(currentBoxCoordinates.charAt(0)), Number(currentBoxCoordinates.charAt(1)) ]
         const coordinates = [ currentCoordinate ];
         const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
-        const shipLength = 5;
+        const shipLength = currentShip.geLength();
         for(let i=0; i<shipLength; i += 1) {
             if(currentAxis === "x") {
                 coordinates.push( [ currentCoordinate[0], currentCoordinate[1] + i ] );
@@ -171,6 +173,7 @@ const secondPage = (function secondPage() {
     function loadSecondPage() {
         removeClassFromHeader();
         removeAllContentMain();
+        currentShip.updateShip();
         makeShipToBePlacedHeader();
         makeAxisChoiceButton();
         makeGridContainer();
