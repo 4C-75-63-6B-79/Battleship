@@ -1,5 +1,7 @@
-// import odinLogo from "../assets/images/odin_logo.svg";
+import odinLogo from "../../assets/images/odin_logo.svg";
+import githubLogo from "../../assets/images/github_logo.svg";
 
+import { makeElement, makeButton, makeImg } from "./html_create_functions";
 import loadSecondPage from "./place_ships_page";
 import { initPlayers } from "../object/game_control";
 
@@ -7,69 +9,56 @@ const firstPage = (function initFirstPage() {
 
     function makeHeader() {
         const body = document.querySelector("body");
-        const header = document.createElement("header");
+        const header = makeElement({elementType: "header"});
         body.appendChild(header);
     }
 
     function makeHeaderContent() {
         const header = document.querySelector("header");
-        const h1 = document.createElement("h1");
-        h1.textContent = "BATTLESHIP";
-        h1.setAttribute("class", "firstPage");
-        h1.setAttribute("title", "BATTLESHIP");
+        const h1 = makeElement({elementType: "h1", textContent: "BATTLESHIP", classNames: "firstPage", title: "BATTLESHIP"});
         header.appendChild(h1);
     }
 
     function makeMain() {
         const body = document.querySelector("body");
-        const main = document.createElement("main");
+        const main = makeElement({elementType: "main"});
         body.appendChild(main);
     }
 
-    // function createFormInputs({id, labelText, type, pattern, minLength, maxLength}) {
-    //     const para = document.createElement("p");
-    //     const label = document.createElement("label");
-    //     label.setAttribute("for", id);
-    //     const span = document.createElement('span');
-    //     span.textContent = labelText;
-
-
-    // }
-
     function startButtonClicked() {
-        loadSecondPage();
         initPlayers();
+        loadSecondPage();
     }
 
     function createMainContent() {
         const main = document.querySelector("main");
-        const startButton = document.createElement("button");
-        startButton.textContent = "Start Game";
-        startButton.addEventListener("click", startButtonClicked);
-
+        const startButton = makeButton({ textContent: "Start Game", event: "click", callBackFunction: [startButtonClicked] });
         main.appendChild(startButton);
     }
 
     function makeFooter() {
         const body = document.querySelector("body");
-        const footer = document.createElement("footer");
+        const footer = makeElement({elementType: "footer"});
         body.appendChild(footer); 
     }
 
     function createFooterContent() {
         const footer = document.querySelector("footer");
-        const para = document.createElement("p");
-        para.textContent = "Created to complete the assignment of The Odin Project.";
+        const div = makeElement({textContent: "Created to complete the assignment BATTLESHIP of The Odin Project."});
 
-        // const linkToOdinProject = document.createElement("a");  // create a link to the odin project website
-        // linkToOdinProject.setAttribute("herf", "https://www.theodinproject.com/");
-        // const odinLogoImg = new Image();  // creating the logo of the odin project
-        // odinLogoImg.setAttribute("title", "The Odin Project Logo");
-        // odinLogoImg.src = odinLogo;
+        const linkToOdinProject = makeElement({elementType: "a"});
+        linkToOdinProject.setAttribute("href", "https://www.theodinproject.com");
+        const odinLogoImg = makeImg({ id: "odin", src: odinLogo, title: "The Odin Project Logo and Link"});
+        linkToOdinProject.appendChild(odinLogoImg);
+        
+        const linkToSourceCode = makeElement({ elementType: "a"});
+        linkToSourceCode.setAttribute("href", "https://github.com/4C-75-63-6B-79/Battleship");
+        const gitHubLogo = makeImg({ id: "github", src: githubLogo, title: "Source Code Link"});
+        linkToSourceCode.appendChild(gitHubLogo);
 
-        // linkToOdinProject.appendChild(odinLogoImg);
-        // para.appendChild(linkToOdinProject);
-        footer.appendChild(para);
+        div.appendChild(linkToOdinProject);
+        div.appendChild(linkToSourceCode);
+        footer.appendChild(div);
     }
 
     function startFirstPage() {
