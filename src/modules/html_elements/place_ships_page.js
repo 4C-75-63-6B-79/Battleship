@@ -1,4 +1,4 @@
-import { makeDiv } from "./html_create_functions";
+import { makeButton, makeElement} from "./html_create_functions";
 
 const secondPage = (function secondPage() {
 
@@ -34,11 +34,9 @@ const secondPage = (function secondPage() {
         main.replaceChildren();
     }
 
-    function makeWhichShipToBePlacedHeader() {
+    function makeShipToBePlacedHeader() {
         const main = document.querySelector("main");
-        const h2 = document.createElement("h2");
-        h2.setAttribute("title", "Chief, Place Your Carrier");
-        h2.textContent = "Chief, Place your Carrier";
+        const h2 = makeElement({ elementType: "h2", title: "Chief, Place Your Carrier", textContent: "Chief, Place your Carrier"});
         main.appendChild(h2);
     }
 
@@ -58,18 +56,13 @@ const secondPage = (function secondPage() {
 
     function makeAxisChoiceButton() {
         const main = document.querySelector("main");
-        const axisButton = document.createElement("button");
-        axisButton.setAttribute("title", "Place Vessel in Y Axis");
-        axisButton.setAttribute("data-currentAxis", "x");
-        axisButton.textContent = "Place Vessel in Y Axis";
-        axisButton.addEventListener("click", axisButtonClicked);
+        const axisButton = makeButton({ textContent: "Place Vessel in Y Axis", title: "Place Vessel in Y Axis", dataAttributeName: "currentAxis", dataAttributeValue: "x", event: "click", callBackFunction: [axisButtonClicked] });
         main.appendChild(axisButton);
     }
 
     function makeGridContainer() {
         const main = document.querySelector("main");
-        const gridContainer = document.createElement("div");
-        gridContainer.setAttribute("class", "gridContainer");
+        const gridContainer = makeElement({ classNames: "gridContainer" });
 
         // setting the gird using javascript will remove later
         gridContainer.style.display = "grid";
@@ -168,7 +161,7 @@ const secondPage = (function secondPage() {
         const gridContainer = document.querySelector("div.gridContainer");
         for(let i=0; i<10; i += 1) {
             for(let j=0; j<10; j += 1) {
-                const div = makeDiv({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, events: ["mouseover", "mouseout", "click"], callBackFunctions: [mouseOverBox, mouseOutBox, boxClicked] });
+                const div = makeElement({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, events: ["mouseover", "mouseout", "click"], callBackFunctions: [mouseOverBox, mouseOutBox, boxClicked] });
                 gridContainer.appendChild(div);
             }
         }
@@ -178,7 +171,7 @@ const secondPage = (function secondPage() {
     function loadSecondPage() {
         removeClassFromHeader();
         removeAllContentMain();
-        makeWhichShipToBePlacedHeader();
+        makeShipToBePlacedHeader();
         makeAxisChoiceButton();
         makeGridContainer();
         makeGrid();
