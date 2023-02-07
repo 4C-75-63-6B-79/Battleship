@@ -1,25 +1,25 @@
-function makeDiv({id, classNames, textContent, title, dataAttributeName, dataAttributeValue, events, callBackFunctions}) {
-    const div = document.createElement("div");
+function makeElement({elementType = "div", id, classNames, textContent, title, dataAttributeName, dataAttributeValue, events, callBackFunctions}) {
+    const element = document.createElement(`${elementType}`);
     if(id) {
-        div.setAttribute("id", id);
+        element.setAttribute("id", id);
     }
     if(classNames) {
-        classNames.split(" ").forEach(eleClass => div.classList.add(eleClass));
+        classNames.split(" ").forEach(eleClass => element.classList.add(eleClass));
     }
-    div.textContent = textContent || "";
+    element.textContent = textContent || "";
     if(title) {
-        div.setAttribute("title", title);
+        element.setAttribute("title", title);
     }
     if(dataAttributeName) {
-        div.setAttribute(`data-${dataAttributeName}`, "");
+        element.setAttribute(`data-${dataAttributeName}`, "");
     }
     if(dataAttributeValue && dataAttributeName) {
-        div.setAttribute(`data-${dataAttributeName}`, dataAttributeValue);
+        element.setAttribute(`data-${dataAttributeName}`, dataAttributeValue);
     }
     if(Array.isArray(events) && Array.isArray(callBackFunctions) && events.length === callBackFunctions.length) {
-        events.forEach((event, i) => div.addEventListener(event, callBackFunctions[i]));
+        events.forEach((event, i) => element.addEventListener(event, callBackFunctions[i]));
     }
-    return div;
+    return element;
 }
 
 function makeButton({id, classNames, textContent, title, event, callBackFunction}) {
@@ -41,4 +41,4 @@ function makeButton({id, classNames, textContent, title, event, callBackFunction
     return button;
 }
 
-export { makeDiv, makeButton }
+export { makeElement, makeButton }
