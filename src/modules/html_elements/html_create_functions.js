@@ -47,4 +47,18 @@ function makeButton({id, classNames, textContent, title, dataAttributeName, data
     return button;
 }
 
-export { makeElement, makeButton }
+function makeImg({id, src, title}) {
+    const img = new Image();
+    if(id) {
+        img.setAttribute("id", id);
+    }
+    if(src) {
+        img.src = src;
+    }
+    if(title) {
+        img.setAttribute("title", title);
+    }
+    return img;
+}
+
+export { makeElement, makeButton, makeImg }
