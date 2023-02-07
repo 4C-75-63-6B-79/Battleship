@@ -2,6 +2,28 @@ import { makeDiv } from "./html_create_functions";
 
 const secondPage = (function secondPage() {
 
+    const currentShip = (function initShip() {
+        const ships = [
+            {name: "destroyer", len: 2},
+            {name: "cruiser", len: 3},
+            {name: "submarine", len: 3},
+            {name: "battleship", len: 4},
+            {name: "carrier", len: 5}
+        ];
+        let name; let len;
+        function updateShip() {
+            const ship = ships.pop();
+            [ name, len ] = ship;
+        }
+        function getName() { return name; }
+        function geLength() { return len; }
+        return {
+            updateShip,
+            getName,
+            geLength
+        }
+    })();
+
     function removeClassFromHeader() {
         const h1 = document.querySelector("h1.firstPage");
         h1.classList.remove("firstPage")
