@@ -10,6 +10,10 @@ const gameControl = (function gameControl() {
         player2 = new Player("computer");
     }
 
+    function placeUserShips(shipName, coords) {
+        return player1.placeShip(shipName, coords);
+    }
+
     function playerUserMakesMove(coord) {
         const isPlayer2Hit = player2.receiveAttak(coord);
         player1.markAttack(isPlayer2Hit, coord);
@@ -78,13 +82,14 @@ const gameControl = (function gameControl() {
 
     return {
         initPlayers,
+        placeUserShips,
         playerUserMakesMove,
         playerComputerMakesMove,
         placePlayerShips,
     }
 })();
 
-const {initPlayers, playerUserMakesMove, playerComputerMakesMove, placePlayerShips} = gameControl;
+const {initPlayers, placeUserShips, playerUserMakesMove, playerComputerMakesMove, placePlayerShips} = gameControl;
 
-export {initPlayers, playerUserMakesMove, playerComputerMakesMove, placePlayerShips} ;
+export {initPlayers, placeUserShips, playerUserMakesMove, playerComputerMakesMove, placePlayerShips} ;
 
