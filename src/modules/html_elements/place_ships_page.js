@@ -13,6 +13,7 @@ const secondPage = (function secondPage() {
         let name; let len;
         function updateShip() {
             const ship = ships.pop();
+            if(!ship) return ;
             name = ship.name;
             len = ship.len;
         }
@@ -40,6 +41,13 @@ const secondPage = (function secondPage() {
         const textContent = `Chief, Place Your ${  currentShip.getName().charAt(0).toUpperCase()  }${ currentShip.getName().substr(1) }`;
         const h2 = makeElement({ elementType: "h2", title: textContent, textContent});
         main.appendChild(h2);
+    }
+
+    function updateShipToBePlaceHeader() {
+        const h2 = document.querySelector("h2");
+        const textContent = `Chief, Place Your ${  currentShip.getName().charAt(0).toUpperCase()  }${ currentShip.getName().substr(1) }`;
+        h2.setAttribute("title", textContent);
+        h2.textContent = textContent;
     }
 
     function axisButtonClicked(event) {
@@ -156,6 +164,8 @@ const secondPage = (function secondPage() {
                 box.removeEventListener("mouseout", mouseOutBox);
                 box.removeEventListener("click", boxClicked);
             });
+            currentShip.updateShip();
+            updateShipToBePlaceHeader();
         }
     }
 
