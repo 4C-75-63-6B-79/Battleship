@@ -1,3 +1,4 @@
+import { placeUserShips } from "../object/game_control";
 import { makeButton, makeElement} from "./html_create_functions";
 
 const secondPage = (function secondPage() {
@@ -13,9 +14,10 @@ const secondPage = (function secondPage() {
         let name; let len;
         function updateShip() {
             const ship = ships.pop();
-            if(!ship) return ;
+            if(!ship) return true; // to show that all the ships are placed and now we can start the game
             name = ship.name;
             len = ship.len;
+            return false;
         }
         function getName() { return name; }
         function geLength() { return len; }
@@ -153,9 +155,8 @@ const secondPage = (function secondPage() {
     function boxClicked(event) {
         const clickedBox = event.target;
         const currentBoxCoordinates = clickedBox.getAttribute("data-coordinates");
-        if(isCurrentBoxValidForShip(clickedBox)) {
-            changeBoxesBackground("#aaeeaa", currentBoxCoordinates);
-            const coordinates = getCoordinates(currentBoxCoordinates);
+
+        function removeEventListenerFormBoxes(coordinates) {
             coordinates.forEach( coords => {
                 const dataCoordinates = `${coords[0]}${coords[1]}`;
                 const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
@@ -164,8 +165,18 @@ const secondPage = (function secondPage() {
                 box.removeEventListener("mouseout", mouseOutBox);
                 box.removeEventListener("click", boxClicked);
             });
-            currentShip.updateShip();
-            updateShipToBePlaceHeader();
+        }
+
+        if(isCurrentBoxValidForShip(clickedBox)) {
+            changeBoxesBackground("#aaeeaa", currentBoxCoordinates);
+            const coordinates = getCoordinates(currentBoxCoordinates);
+            removeEventListenerFormBoxes(coordinates);
+            placeUserShips(currentShip.getName(), coordinates);
+            if (currentShip.updateShip()) {
+                // call the third page load thing
+            } else{
+                updateShipToBePlaceHeader();
+            }
         }
     }
 
