@@ -1,4 +1,4 @@
-import { makeElement } from "./html_create_functions";
+import { makeElement, makeGrid } from "./html_create_functions";
 
 const thirdPage = (function initThirdPage() {
 
@@ -33,6 +33,15 @@ const thirdPage = (function initThirdPage() {
         friendlyWater.appendChild(friendlyWaterGird);
     }
 
+    function makeEnemyWater() {
+        const enemyWater = document.getElementById("enemyWater");
+        const title = makeElement({elementType: "h2", textContent: "Enemy Waters", title: "Enemy Waters"});
+        enemyWater.appendChild(title);
+
+        const grid = makeGrid();
+        enemyWater.appendChild(grid);
+    }
+
     function removeEventListenerFromGird(grid) {
         const boxes = Array.from(grid.children);
         boxes.forEach(box => {
@@ -47,6 +56,7 @@ const thirdPage = (function initThirdPage() {
         makeStatusBox();
         makeWaterContainers();
         makeFriendlyWater(friendlyWaterGrid);
+        makeEnemyWater();
     }
 
     return {
