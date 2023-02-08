@@ -1,5 +1,8 @@
 import { makeElement, makeGrid } from "./html_create_functions";
 
+import redDot from "../../assets/images/red_dot.svg";
+import whiteDot from "../../assets/images/white_dot.svg";
+
 const thirdPage = (function initThirdPage() {
 
     function removeAllContentMain() {
@@ -36,11 +39,25 @@ const thirdPage = (function initThirdPage() {
     function mouseOver(event) {
         const box = event.target;
         box.style.backgroundColor = "#cccccc";
+        box.style.cursor = "crosshair";
     }
 
     function mouseOut(event) {
         const box = event.target;
         box.style.backgroundColor = "#ffffff";
+        box.style.cursor = "default";
+    }
+
+    function updateFriendlyWater(hitDetails) {
+        const {coord, isPlayerHit} = hitDetails;
+        const box = document.querySelector(`#friendlyWater>div[data-coordinates = "${coord[0]}${coord[1]}"]`);
+        box.style.backgroundImage = isPlayerHit ? `url(${redDot})` : `url(${whiteDot})`;
+    }
+
+    function updateEnemyWater(hitDetails) {
+        const {coord, isPlayerHit} = hitDetails;
+        const box = document.querySelector(`#enemyWater>div[data-coordinates = "${coord[0]}${coord[1]}"]`);
+        box.style.backgroundImage = isPlayerHit ? `url(${redDot})` : `url(${whiteDot})`;
     }
 
     function boxClicked(event) {
@@ -79,10 +96,12 @@ const thirdPage = (function initThirdPage() {
 
     return {
         loadThirdPage,
+        updateEnemyWater,
+        updateFriendlyWater
     }
 
 })();
 
-const { loadThirdPage } = thirdPage;
+const { loadThirdPage, updateEnemyWater, updateFriendlyWater } = thirdPage;
 
-export default loadThirdPage;
+export { loadThirdPage, updateEnemyWater, updateFriendlyWater };
