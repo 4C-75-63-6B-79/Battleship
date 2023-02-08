@@ -1,5 +1,6 @@
 import { placeUserShips } from "../object/game_control";
 import { makeButton, makeElement} from "./html_create_functions";
+import loadThirdPage from "./third_page";
 
 const secondPage = (function initSecondPage() {
 
@@ -167,13 +168,23 @@ const secondPage = (function initSecondPage() {
             });
         }
 
+        function changeTitleBoxes(coordinates) {
+            coordinates.forEach( coords => {
+                const dataCoordinates = `${coords[0]}${coords[1]}`;
+                const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
+                box.setAttribute("title", currentShip.getName());
+            });
+            
+        }
+
         if(isCurrentBoxValidForShip(clickedBox)) {
             changeBoxesBackground("#aaeeaa", currentBoxCoordinates);
             const coordinates = getCoordinates(currentBoxCoordinates);
             removeEventListenerFormBoxes(coordinates);
+            changeTitleBoxes(coordinates);
             placeUserShips(currentShip.getName(), coordinates);
             if (currentShip.updateShip()) {
-                // call the third page load thing
+                loadThirdPage();
             } else{
                 updateShipToBePlaceHeader();
             }
