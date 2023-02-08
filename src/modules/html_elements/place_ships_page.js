@@ -1,7 +1,7 @@
 import { placeUserShips } from "../object/game_control";
 import { makeButton, makeElement} from "./html_create_functions";
 
-const secondPage = (function secondPage() {
+const secondPage = (function initSecondPage() {
 
     const currentShip = (function initShip() {
         const ships = [
