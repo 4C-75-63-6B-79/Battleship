@@ -80,16 +80,21 @@ const gameControl = (function gameControl() {
          ships.forEach(ship => placeShip(ship[0], ship[1]));
     }
 
+    function placeComputerShips() {
+        placePlayerShips(player2);
+    }
+
     return {
         initPlayers,
         placeUserShips,
         playerUserMakesMove,
         playerComputerMakesMove,
         placePlayerShips,
+        placeComputerShips,
     }
 })();
 
-const {initPlayers, placeUserShips, playerUserMakesMove, playerComputerMakesMove, placePlayerShips} = gameControl;
+const {initPlayers, placeUserShips, playerUserMakesMove, playerComputerMakesMove, placePlayerShips, placeComputerShips} = gameControl;
 
-export {initPlayers, placeUserShips, playerUserMakesMove, playerComputerMakesMove, placePlayerShips} ;
+export {initPlayers, placeUserShips, playerUserMakesMove, playerComputerMakesMove, placePlayerShips, placeComputerShips} ;
 
