@@ -1,5 +1,5 @@
 import { placeUserShips } from "../object/game_control";
-import { makeButton, makeElement} from "./html_create_functions";
+import { makeButton, makeElement, makeGrid} from "./html_create_functions";
 import loadThirdPage from "./third_page";
 
 const secondPage = (function initSecondPage() {
@@ -71,20 +71,6 @@ const secondPage = (function initSecondPage() {
         const main = document.querySelector("main");
         const axisButton = makeButton({ textContent: "Place Vessel in Y Axis", title: "Place Vessel in Y Axis", dataAttributeName: "currentAxis", dataAttributeValue: "x", event: "click", callBackFunction: [axisButtonClicked] });
         main.appendChild(axisButton);
-    }
-
-    function makeGridContainer() {
-        const main = document.querySelector("main");
-        const gridContainer = makeElement({ classNames: "gridContainer" });
-
-        // setting the gird using javascript will remove later
-        gridContainer.style.display = "grid";
-        gridContainer.style.gridTemplateRows = "repeat(10, 30px)";
-        gridContainer.style.gridTemplateColumns = "repeat(10, 30px)";
-        gridContainer.style.gap = "5px";
-        // remove things above here.
-
-        main.appendChild(gridContainer);
     }
 
     function getCoordinates(currentBoxCoordinates) {
@@ -174,7 +160,6 @@ const secondPage = (function initSecondPage() {
                 const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
                 box.setAttribute("title", currentShip.getName());
             });
-            
         }
 
         if(isCurrentBoxValidForShip(clickedBox)) {
@@ -191,15 +176,10 @@ const secondPage = (function initSecondPage() {
         }
     }
 
-    function makeGrid() {
-        const gridContainer = document.querySelector("div.gridContainer");
-        for(let i=0; i<10; i += 1) {
-            for(let j=0; j<10; j += 1) {
-                const div = makeElement({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, events: ["mouseover", "mouseout", "click"], callBackFunctions: [mouseOverBox, mouseOutBox, boxClicked] });
-                gridContainer.appendChild(div);
-            }
-        }
-
+    function makeGridContainer() {  // making gird to place the ships
+        const main = document.querySelector("main");
+        const grid = makeGrid("friendlyWater", [mouseOverBox, mouseOutBox, boxClicked]);
+        main.appendChild(grid);
     }
 
     function loadSecondPage() {
