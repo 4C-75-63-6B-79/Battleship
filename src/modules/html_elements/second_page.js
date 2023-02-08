@@ -178,7 +178,7 @@ const secondPage = (function initSecondPage() {
 
     function makeGridContainer() {  // making gird to place the ships
         const main = document.querySelector("main");
-        const grid = makeGrid(null, [mouseOverBox, mouseOutBox, boxClicked]);
+        const grid = makeGrid([mouseOverBox, mouseOutBox, boxClicked]);
         main.appendChild(grid);
     }
 
