@@ -33,12 +33,30 @@ const thirdPage = (function initThirdPage() {
         friendlyWater.appendChild(friendlyWaterGird);
     }
 
+    function mouseOver(event) {
+        const box = event.target;
+        box.style.backgroundColor = "#cccccc";
+    }
+
+    function mouseOut(event) {
+        const box = event.target;
+        box.style.backgroundColor = "#ffffff";
+    }
+
+    function boxClicked(event) {
+        const box = event.target;
+        box.style.backgroundColor = "#ccaaaa";
+        box.removeEventListener("mouseover", mouseOver);
+        box.removeEventListener("mouseout", mouseOut);
+        box.removeEventListener("click", boxClicked);
+    }
+
     function makeEnemyWater() {
         const enemyWater = document.getElementById("enemyWater");
         const title = makeElement({elementType: "h2", textContent: "Enemy Waters", title: "Enemy Waters"});
         enemyWater.appendChild(title);
 
-        const grid = makeGrid();
+        const grid = makeGrid([mouseOver, mouseOut, boxClicked]);
         enemyWater.appendChild(grid);
     }
 
