@@ -1,4 +1,3 @@
-import { updateEnemyWater } from "../html_elements/third_page";
 import Player from "./player";
 
 const gameControl = (function gameControl() {
@@ -16,21 +15,31 @@ const gameControl = (function gameControl() {
     }
 
     function playerUserMakesMove(coord) {
-        const isPlayerHit = player2.receiveAttak(coord);
+        const isPlayerHit = player2.receiveAttack(coord);
         player1.markAttack(isPlayerHit, coord);
+        const isNewShipSunk = player2.isNewShipSunk();
+        const isWinner = player2.allShipsSunk();
         return {
-            isPlayerHit,
-            coord
+            name: player1.name,
+            coord,              // coordinates of the attack
+            isPlayerHit,        // status if it was a successful attack or not
+            isNewShipSunk,      // is there any new ship which is sunk
+            isWinner,           // has the game been won
         };
     }
 
     function playerComputerMakesMove() {
         const coord = player2.makeAttack();
-        const isPlayerHit = player1.receiveAttak(coord);
+        const isPlayerHit = player1.receiveAttack(coord);
         player2.markAttack(isPlayerHit, coord);
+        const isNewShipSunk = player1.isNewShipSunk();
+        const isWinner = player1.allShipsSunk();
         return {
-            isPlayerHit,
-            coord
+            name: player2.name,
+            coord,              // coordinates of the attack
+            isPlayerHit,        // status if it was a successful attack or not
+            isNewShipSunk,      // is there any new ship which is sunk
+            isWinner,           // has the game been won
         };
     }
     
@@ -93,33 +102,16 @@ const gameControl = (function gameControl() {
         placePlayerShips(player2);
     }
 
-    function mainGameControl(attackedCoordinates) {  // called when user makea a move with the coords
-        let hitDetails = playerUserMakesMove(attackedCoordinates);
-        let shipSinkStatus = player2.isNewShipSunk();
-        updateEnemyWater(hitDetails);
-        // update the enemy water with these details returing the shipSink and the hitstatus
-        // update the message box if success hit and if ship sunk then no hit status
-        let winStatus  = player2.allShipSunk();
-        // if win status true update the message box and end the game
-
-        hitDetails = playerComputerMakesMove();
-        shipSinkStatus = player1.isNewShipSunk();
-        // update the message box and the friendly water
-
-        winStatus = player1.allShipSunk();
-    }
-
     return {
         initPlayers,
         placeUserShips,
         placeComputerShips,
         playerUserMakesMove,
         playerComputerMakesMove,
-        mainGameControl,
     }
 })();
 
-const {initPlayers, placeUserShips, placeComputerShips, playerUserMakesMove, playerComputerMakesMove, mainGameControl} = gameControl;
+const {initPlayers, placeUserShips, placeComputerShips, playerUserMakesMove, playerComputerMakesMove} = gameControl;
 
-export {initPlayers, placeUserShips, placeComputerShips, playerUserMakesMove, playerComputerMakesMove, mainGameControl} ;
+export {initPlayers, placeUserShips, placeComputerShips, playerUserMakesMove, playerComputerMakesMove} ;
 
