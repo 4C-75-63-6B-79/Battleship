@@ -1,4 +1,4 @@
-import { placeUserShips } from "../object/game_control";
+import { placeUserShips, placeComputerShips } from "../object/game_control";
 import { makeButton, makeElement, makeGrid} from "./html_create_functions";
 import { loadThirdPage } from "./third_page";
 
@@ -190,6 +190,7 @@ const secondPage = (function initSecondPage() {
         makeAxisChoiceButton();
         makeGridContainer();
         makeGrid();
+        placeComputerShips();
     }
 
     return {
