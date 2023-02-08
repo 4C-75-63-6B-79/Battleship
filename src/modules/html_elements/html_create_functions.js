@@ -61,4 +61,22 @@ function makeImg({id, src, title}) {
     return img;
 }
 
-export { makeElement, makeButton, makeImg }
+function makeGrid(id, callBackFunctionsForBox) {
+    const gridContainer = makeElement({ id, classNames: "gridContainer" });
+
+    gridContainer.style.display = "grid";
+    gridContainer.style.gridTemplateRows = "repeat(10, 30px)";
+    gridContainer.style.gridTemplateColumns = "repeat(10, 30px)";
+    gridContainer.style.gap = "5px";
+
+    for(let i=0; i<10; i += 1) {
+        for(let j=0; j<10; j += 1) {
+            const div = makeElement({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, events: ["mouseover", "mouseout", "click"], callBackFunctions: callBackFunctionsForBox});
+            gridContainer.appendChild(div);
+        }
+    }
+
+    return gridContainer;
+}
+
+export { makeElement, makeButton, makeImg, makeGrid }
