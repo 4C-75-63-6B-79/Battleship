@@ -18,7 +18,7 @@ const gameControl = (function gameControl() {
         const isPlayerHit = player2.receiveAttack(coord);
         player1.markAttack(isPlayerHit, coord);
         const isNewShipSunk = player2.isNewShipSunk();
-        const isWinner = player2.allShipsSunk();
+        const isWinner = player2.allShipSunk();
         return {
             name: player1.name,
             coord,              // coordinates of the attack
@@ -33,7 +33,7 @@ const gameControl = (function gameControl() {
         const isPlayerHit = player1.receiveAttack(coord);
         player2.markAttack(isPlayerHit, coord);
         const isNewShipSunk = player1.isNewShipSunk();
-        const isWinner = player1.allShipsSunk();
+        const isWinner = player1.allShipSunk();
         return {
             name: player2.name,
             coord,              // coordinates of the attack
