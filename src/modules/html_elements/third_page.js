@@ -15,6 +15,8 @@ const thirdPage = (function initThirdPage() {
         const main = document.querySelector("main");
         const statusBox = makeElement({id:"statusBox"});
         const p = makeElement({elementType: "p", textContent: "Awaiting your order Chief!", title: "Awaiting your order Chief!"});
+        const pbackward = makeElement({elementType: "p", classNames: "backward"});
+        statusBox.appendChild(pbackward);
         statusBox.appendChild(p);
         main.appendChild(statusBox);
     }
@@ -66,13 +68,46 @@ const thirdPage = (function initThirdPage() {
             console.log(name);
         }
     }
+
+    function updateMessageBox({name, isPlayerHit, isNewShipSunk}) {
+        
+        function getMessage() {
+            if(isNewShipSunk) {
+                if(name === "computer") {
+                   return `Enemy fired a shot and sunk your ${isNewShipSunk.name}.`;
+                } 
+                return `You fired a shot and sunk enemy's ${isNewShipSunk.name}.`;
+            } 
+            if(isPlayerHit){
+                if(name === "computer") {
+                    return "Enemy fired a shot and it hit your ship";
+                } 
+                return "You fired a shot and it hit enemy ship";
+            }
+            if(name === "computer") {
+                return "Enemy fired a shot and missed";
+            } 
+            return "You fired a shot and missed";
+        }
+
+        const messageBox = document.getElementById("statusBox");
+        const pbackward = document.querySelector("p.backward");
+        messageBox.removeChild(pbackward);
+        const p = document.querySelector("#statusBox > p");
+        p.classList.add("backward");
+        const textContent = getMessage();
+        const newP = makeElement({elementType: "p", textContent, title: textContent});
+        messageBox.appendChild(newP);
+    }
     
     function mainGameControl(attackedCoordinates) {  // called when user makea a move with the coords
         let hitDetails = playerUserMakesMove(attackedCoordinates);
         updateEnemyWater(hitDetails);
+        updateMessageBox(hitDetails);
         checkWinner(hitDetails);
         hitDetails = playerComputerMakesMove();
         updateFriendlyWater(hitDetails);
+        updateMessageBox(hitDetails);
         checkWinner(hitDetails);
     }
 
@@ -114,8 +149,6 @@ const thirdPage = (function initThirdPage() {
 
     return {
         loadThirdPage,
-        updateEnemyWater,
-        updateFriendlyWater
     }
 
 })();
