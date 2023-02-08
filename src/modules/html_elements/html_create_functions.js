@@ -61,8 +61,8 @@ function makeImg({id, src, title}) {
     return img;
 }
 
-function makeGrid(id, callBackFunctionsForBox) {
-    const gridContainer = makeElement({ id, classNames: "gridContainer" });
+function makeGrid(callBackFunctions) {
+    const gridContainer = makeElement({classNames: "gridContainer" });
 
     gridContainer.style.display = "grid";
     gridContainer.style.gridTemplateRows = "repeat(10, 30px)";
@@ -71,7 +71,7 @@ function makeGrid(id, callBackFunctionsForBox) {
 
     for(let i=0; i<10; i += 1) {
         for(let j=0; j<10; j += 1) {
-            const div = makeElement({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, events: ["mouseover", "mouseout", "click"], callBackFunctions: callBackFunctionsForBox});
+            const div = makeElement({classNames: "box", title: "emptyBox", dataAttributeName: "coordinates", dataAttributeValue: `${i}${j}`, events: ["mouseover", "mouseout", "click"], callBackFunctions});
             gridContainer.appendChild(div);
         }
     }
