@@ -1,3 +1,4 @@
+import { updateEnemyWater } from "../html_elements/third_page";
 import Player from "./player";
 
 const gameControl = (function gameControl() {
@@ -15,14 +16,22 @@ const gameControl = (function gameControl() {
     }
 
     function playerUserMakesMove(coord) {
-        const isPlayer2Hit = player2.receiveAttak(coord);
-        player1.markAttack(isPlayer2Hit, coord);
+        const isPlayerHit = player2.receiveAttak(coord);
+        player1.markAttack(isPlayerHit, coord);
+        return {
+            isPlayerHit,
+            coord
+        };
     }
 
     function playerComputerMakesMove() {
         const coord = player2.makeAttack();
-        const isPlayer1hit = player1.receiveAttak(coord);
-        player2.markAttack(isPlayer1hit, coord);
+        const isPlayerHit = player1.receiveAttak(coord);
+        player2.markAttack(isPlayerHit, coord);
+        return {
+            isPlayerHit,
+            coord
+        };
     }
     
     function randomShipCoordGenerator(numOfCoordinates) {
@@ -84,17 +93,33 @@ const gameControl = (function gameControl() {
         placePlayerShips(player2);
     }
 
+    function mainGameControl(attackedCoordinates) {  // called when user makea a move with the coords
+        let hitDetails = playerUserMakesMove(attackedCoordinates);
+        let shipSinkStatus = player2.isNewShipSunk();
+        updateEnemyWater(hitDetails);
+        // update the enemy water with these details returing the shipSink and the hitstatus
+        // update the message box if success hit and if ship sunk then no hit status
+        let winStatus  = player2.allShipSunk();
+        // if win status true update the message box and end the game
+
+        hitDetails = playerComputerMakesMove();
+        shipSinkStatus = player1.isNewShipSunk();
+        // update the message box and the friendly water
+
+        winStatus = player1.allShipSunk();
+    }
+
     return {
         initPlayers,
         placeUserShips,
+        placeComputerShips,
         playerUserMakesMove,
         playerComputerMakesMove,
-        placePlayerShips,
-        placeComputerShips,
+        mainGameControl,
     }
 })();
 
-const {initPlayers, placeUserShips, playerUserMakesMove, playerComputerMakesMove, placePlayerShips, placeComputerShips} = gameControl;
+const {initPlayers, placeUserShips, placeComputerShips, playerUserMakesMove, playerComputerMakesMove, mainGameControl} = gameControl;
 
-export {initPlayers, placeUserShips, playerUserMakesMove, playerComputerMakesMove, placePlayerShips, placeComputerShips} ;
+export {initPlayers, placeUserShips, placeComputerShips, playerUserMakesMove, playerComputerMakesMove, mainGameControl} ;
 
