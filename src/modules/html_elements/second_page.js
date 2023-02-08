@@ -1,6 +1,6 @@
 import { placeUserShips } from "../object/game_control";
 import { makeButton, makeElement, makeGrid} from "./html_create_functions";
-import loadThirdPage from "./third_page";
+import { loadThirdPage } from "./third_page";
 
 const secondPage = (function initSecondPage() {
 
