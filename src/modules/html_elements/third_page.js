@@ -13,7 +13,9 @@ const thirdPage = (function initThirdPage() {
 
     function makeStatusBox() {
         const main = document.querySelector("main");
-        const statusBox = makeElement({id:"statusBox", textContent: "Awaiting Order Chief", title: "Awaiting Order Chief"});
+        const statusBox = makeElement({id:"statusBox"});
+        const p = makeElement({elementType: "p", textContent: "Awaiting your order Chief!", title: "Awaiting your order Chief!"});
+        statusBox.appendChild(p);
         main.appendChild(statusBox);
     }
 
@@ -59,12 +61,19 @@ const thirdPage = (function initThirdPage() {
         box.style.backgroundImage = isPlayerHit ? `url(${redDot})` : `url(${whiteDot})`;
     }
 
+    function checkWinner({isWinner, name}) {
+        if(isWinner) {
+            console.log(name);
+        }
+    }
     
     function mainGameControl(attackedCoordinates) {  // called when user makea a move with the coords
         let hitDetails = playerUserMakesMove(attackedCoordinates);
         updateEnemyWater(hitDetails);
+        checkWinner(hitDetails);
         hitDetails = playerComputerMakesMove();
         updateFriendlyWater(hitDetails);
+        checkWinner(hitDetails);
     }
 
     function boxClicked(event) {
@@ -111,6 +120,6 @@ const thirdPage = (function initThirdPage() {
 
 })();
 
-const { loadThirdPage, updateEnemyWater, updateFriendlyWater } = thirdPage;
+const { loadThirdPage } = thirdPage;
 
-export { loadThirdPage, updateEnemyWater, updateFriendlyWater };
+export default loadThirdPage;
