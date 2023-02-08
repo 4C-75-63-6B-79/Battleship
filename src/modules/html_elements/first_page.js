@@ -2,7 +2,7 @@ import odinLogo from "../../assets/images/odin_logo.svg";
 import githubLogo from "../../assets/images/github_logo.svg";
 
 import { makeElement, makeButton, makeImg } from "./html_create_functions";
-import loadSecondPage from "./place_ships_page";
+import loadSecondPage from "./second_page";
 import { initPlayers } from "../object/game_control";
 
 const firstPage = (function initFirstPage() {
@@ -61,7 +61,7 @@ const firstPage = (function initFirstPage() {
         footer.appendChild(div);
     }
 
-    function startFirstPage() {
+    function loadFirstPage() {
         makeHeader();
         makeHeaderContent();
         makeMain();
@@ -71,11 +71,11 @@ const firstPage = (function initFirstPage() {
     }
 
     return {
-        startFirstPage,
+        loadFirstPage,
     }
 
 })();
 
-const {startFirstPage} = firstPage;
+const {loadFirstPage} = firstPage;
 
-export default startFirstPage;
+export default loadFirstPage;
