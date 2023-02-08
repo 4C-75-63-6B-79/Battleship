@@ -1,6 +1,6 @@
 import { placeUserShips, placeComputerShips } from "../object/game_control";
 import { makeButton, makeElement, makeGrid} from "./html_create_functions";
-import { loadThirdPage } from "./third_page";
+import loadThirdPage  from "./third_page";
 
 const secondPage = (function initSecondPage() {
 
@@ -100,7 +100,7 @@ const secondPage = (function initSecondPage() {
     function isCurrentBoxValidForShip(target) {
         const targetDataCoordinates = target.getAttribute("data-coordinates");
         const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
-        const shipLength = 5;
+        const shipLength = currentShip.geLength();
         const isEnoughNumberOfBoxes = (currentAxis === "x" && 10 - Number(targetDataCoordinates.charAt(1)) >= shipLength) || (currentAxis === "y" && 10 - Number(targetDataCoordinates.charAt(0)) >= shipLength) ;
         if(!isEnoughNumberOfBoxes) {
             return false;
