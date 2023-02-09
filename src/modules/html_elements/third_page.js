@@ -3,6 +3,7 @@ import { playerComputerMakesMove, playerUserMakesMove } from "../object/game_con
 
 import redDot from "../../assets/images/red_dot.svg";
 import whiteDot from "../../assets/images/white_dot.svg";
+import loadFourthPage from "./fourth_page";
 
 const thirdPage = (function initThirdPage() {
 
@@ -66,11 +67,12 @@ const thirdPage = (function initThirdPage() {
     function checkWinner({isWinner, name}) {
         if(isWinner) {
             console.log(name);
+            loadFourthPage();
         }
     }
 
     function updateMessageBox({name, isPlayerHit, isNewShipSunk}) {
-        
+
         function getMessage() {
             if(isNewShipSunk) {
                 if(name === "computer") {
