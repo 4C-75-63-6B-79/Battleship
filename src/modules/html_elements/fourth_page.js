@@ -1,3 +1,5 @@
+/* eslint import/no-cycle: [2, { maxDepth: 1 }] */
+
 import { makeButton, makeElement } from "./html_create_functions";
 import loadFirstPage from "./first_page";
 

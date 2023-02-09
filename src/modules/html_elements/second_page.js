@@ -1,3 +1,5 @@
+/* eslint import/no-cycle: [2, { maxDepth: 1 }] */
+
 import { placeUserShips, placeComputerShips } from "../object/game_control";
 import { makeButton, makeElement, makeGrid} from "./html_create_functions";
 import loadThirdPage  from "./third_page";
