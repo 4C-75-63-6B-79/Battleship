@@ -9,6 +9,11 @@ import { initPlayers } from "../object/game_control";
 
 const firstPage = (function initFirstPage() {
 
+    function bodyRemoveContent() {
+        const body = document.querySelector("body");
+        body.replaceChildren();
+    }
+
     function makeHeader() {
         const body = document.querySelector("body");
         const header = makeElement({elementType: "header"});
@@ -113,6 +118,7 @@ const firstPage = (function initFirstPage() {
     }
 
     function loadFirstPage() {
+        bodyRemoveContent();
         makeHeader();
         makeHeaderContent();
         makeMain();
