@@ -19,12 +19,13 @@ const fourthPage = (function initFourthPage() {
     }
 
     function playAgainButtonClicked() {
+        console.log("load first page");
         loadFirstPage();
     }
 
     function makeStartGameAgainButton() {
         const main = document.querySelector("main");
-        const startGameAgainButton = makeButton({textContent: "Play Again", title: "play again button", callBackFunction: [playAgainButtonClicked]});
+        const startGameAgainButton = makeButton({textContent: "Play Again", title: "play again button", event: "click", callBackFunction: [playAgainButtonClicked]});
         main.appendChild(startGameAgainButton);
     }
 
