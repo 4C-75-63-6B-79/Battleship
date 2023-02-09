@@ -1,3 +1,5 @@
+/* eslint import/no-cycle: [2, { maxDepth: 1 }] */
+
 import { makeElement, makeGrid } from "./html_create_functions";
 import { playerComputerMakesMove, playerUserMakesMove } from "../object/game_control";
 
