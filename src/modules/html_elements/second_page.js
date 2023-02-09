@@ -90,12 +90,12 @@ const secondPage = (function initSecondPage() {
         return coordinates;
     }
 
-    function changeBoxesBackground(color, currentBoxCoordinates) {
+    function changeBoxesClass(className, currentBoxCoordinates) {
         const coordinates = getCoordinates(currentBoxCoordinates);
         coordinates.forEach(coords => {
             const dataCoordinates = `${coords[0]}${coords[1]}`;
             const box = document.querySelector(`[data-coordinates = "${dataCoordinates}"]`);
-            box.style.backgroundColor = color;
+            box.className = `box ${className}`;
         });
     }
 
@@ -123,10 +123,9 @@ const secondPage = (function initSecondPage() {
         const box = event.target;
         const currentBoxCoordinates = box.getAttribute("data-coordinates");
         if(isCurrentBoxValidForShip(box)) {
-            changeBoxesBackground("#aaaaaa", currentBoxCoordinates);
+            changeBoxesClass("validBox", currentBoxCoordinates);
         } else {
-            box.style.backgroundColor = "#ffaaaa";
-            box.style.cursor = "not-allowed";
+            box.classList.add("invalidBox");
         }
     }
 
@@ -134,10 +133,9 @@ const secondPage = (function initSecondPage() {
         const box = event.target;
         const currentBoxCoordinates = box.getAttribute("data-coordinates");
         if(isCurrentBoxValidForShip(box)) {
-            changeBoxesBackground("#ffffff", currentBoxCoordinates);
+            changeBoxesClass("", currentBoxCoordinates);
         } else {
-            box.style.backgroundColor = "#ffffff";
-            box.style.cursor = "default";
+            box.classList.remove("invalidBox");
         }
     }
 
@@ -165,7 +163,7 @@ const secondPage = (function initSecondPage() {
         }
 
         if(isCurrentBoxValidForShip(clickedBox)) {
-            changeBoxesBackground("#aaeeaa", currentBoxCoordinates);
+            changeBoxesClass("shipPlacedOnBox", currentBoxCoordinates);
             const coordinates = getCoordinates(currentBoxCoordinates);
             removeEventListenerFormBoxes(coordinates);
             changeTitleBoxes(coordinates);
