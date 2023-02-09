@@ -19,7 +19,6 @@ const fourthPage = (function initFourthPage() {
     }
 
     function playAgainButtonClicked() {
-        console.log("load first page");
         loadFirstPage();
     }
 
