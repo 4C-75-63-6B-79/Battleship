@@ -67,8 +67,10 @@ const thirdPage = (function initThirdPage() {
     function checkWinner({isWinner, name}) {
         if(isWinner) {
             console.log(name);
-            loadFourthPage();
+            loadFourthPage(name);
+            return true;
         }
+        return false;
     }
 
     function updateMessageBox({name, isPlayerHit, isNewShipSunk}) {
@@ -106,7 +108,7 @@ const thirdPage = (function initThirdPage() {
         let hitDetails = playerUserMakesMove(attackedCoordinates);
         updateEnemyWater(hitDetails);
         updateMessageBox(hitDetails);
-        checkWinner(hitDetails);
+        if(checkWinner(hitDetails)) return;
         hitDetails = playerComputerMakesMove();
         updateFriendlyWater(hitDetails);
         updateMessageBox(hitDetails);
