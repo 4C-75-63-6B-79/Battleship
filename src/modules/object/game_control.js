@@ -5,8 +5,8 @@ const gameControl = (function gameControl() {
     let player1; 
     let player2;
 
-    function initPlayers(userPlayerName) {
-        player1 = new Player(`${userPlayerName || "Chief"}`);
+    function initPlayers(userPlayerName = "Chief") {
+        player1 = new Player(`${userPlayerName}`);
         player2 = new Player("computer");
     }
 
