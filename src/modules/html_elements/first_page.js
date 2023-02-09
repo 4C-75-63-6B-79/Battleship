@@ -27,12 +27,42 @@ const firstPage = (function initFirstPage() {
         body.appendChild(main);
     }
 
+    function inputNameValidation() {
+
+        const inputName = document.querySelector("input");
+        const inputNameError = document.querySelector("span.error");
+
+        function showErrorName() {
+            if(inputName.validity.valueMissing) {
+                inputNameError.textContent = "You need to enter your name";
+                inputNameError.className = "error active";
+            } else if(inputName.validity.patternMismatch) {
+                inputNameError.textContent = "name should start with capital letter";
+                inputNameError.className = "error active";
+            } else if(inputName.validity.tooShort) {
+                inputNameError.textContent = "name should be atleast 2 characters long";
+                inputNameError.clasName = "error active";
+            }
+        }
+
+        if(inputName.validity.valid) {
+            inputNameError.textContent = "";
+            inputNameError.className = "error";
+        } else {
+            showErrorName();
+        }
+        if(inputName.getAttribute("placeholder")) {
+            inputName.removeAttribute("placeholder");
+        }
+    }
+
     function makeForm() {
         const main = document.querySelector("main");
         const form = makeElement({elementType: "form"});
         const label = makeElement({elementType: "label", textContent: "Enter name", title: "enter name label"});
         label.setAttribute("for", "name");
-        const input = makeInput({type: "text", id: "name", name: "name", pattern: "^[A-Za-z][A-Za-z]*", minLength: 1, maxLength: 15, placeholder: "", required: true})
+        const input = makeInput({type: "text", id: "name", name: "name", pattern: "^[A-Z][A-Za-z]*", minLength: 2, maxLength: 15, placeholder: "Enter your name", required: true});
+        input.addEventListener("input", inputNameValidation)
         const span = makeElement({elementType: "span", classNames: "error"});
         form.appendChild(label);
         form.appendChild(input);
@@ -41,8 +71,14 @@ const firstPage = (function initFirstPage() {
     }
 
     function startButtonClicked() {
-        initPlayers();
-        loadSecondPage();
+        const inputName = document.querySelector("input");
+        if(!inputName.validity.valid) {
+            inputNameValidation();
+        } else {
+            const playerName = inputName.value;
+            initPlayers(playerName);
+            loadSecondPage();
+        }
     }
 
     function createStartGameButton() {
