@@ -2,9 +2,6 @@
 
 import { makeElement, makeGrid } from "./html_create_functions";
 import { playerComputerMakesMove, playerUserMakesMove } from "../object/game_control";
-
-import redDot from "../../assets/images/red_dot.svg";
-import whiteDot from "../../assets/images/white_dot.svg";
 import loadFourthPage from "./fourth_page";
 
 const thirdPage = (function initThirdPage() {
@@ -46,24 +43,22 @@ const thirdPage = (function initThirdPage() {
 
     function mouseOver(event) {
         const box = event.target;
-        box.style.backgroundColor = "#cccccc";
-        box.style.cursor = "crosshair";
+        box.classList.add("target");
     }
 
     function mouseOut(event) {
         const box = event.target;
-        box.style.backgroundColor = "#ffffff";
-        box.style.cursor = "default";
+        box.classList.remove("target");
     }
 
     function updateFriendlyWater({coord, isPlayerHit}) {
         const box = document.querySelector(`#friendlyWater>.gridContainer>div[data-coordinates = "${coord[0]}${coord[1]}"]`);
-        box.style.backgroundImage = isPlayerHit ? `url(${redDot})` : `url(${whiteDot})`;
+        box.classList.add(isPlayerHit ? "hit" : "miss");
     }
 
     function updateEnemyWater({coord, isPlayerHit}) {
         const box = document.querySelector(`#enemyWater>.gridContainer>div[data-coordinates = "${coord[0]}${coord[1]}"]`);
-        box.style.backgroundImage = isPlayerHit ? `url(${redDot})` : `url(${whiteDot})`;
+        box.classList.add(isPlayerHit ? "hit" : "miss");
     }
 
     function checkWinner({isWinner, name}) {
