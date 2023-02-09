@@ -1,7 +1,9 @@
+/* eslint import/no-cycle: [2, { maxDepth: 1 }] */
+
 import odinLogo from "../../assets/images/odin_logo.svg";
 import githubLogo from "../../assets/images/github_logo.svg";
 
-import { makeElement, makeButton, makeImg } from "./html_create_functions";
+import { makeElement, makeButton, makeImg, makeInput } from "./html_create_functions";
 import loadSecondPage from "./second_page";
 import { initPlayers } from "../object/game_control";
 
@@ -25,12 +27,25 @@ const firstPage = (function initFirstPage() {
         body.appendChild(main);
     }
 
+    function makeForm() {
+        const main = document.querySelector("main");
+        const form = makeElement({elementType: "form"});
+        const label = makeElement({elementType: "label", textContent: "Enter name", title: "enter name label"});
+        label.setAttribute("for", "name");
+        const input = makeInput({type: "text", id: "name", name: "name", pattern: "^[A-Za-z][A-Za-z]*", minLength: 1, maxLength: 15, placeholder: "", required: true})
+        const span = makeElement({elementType: "span", classNames: "error"});
+        form.appendChild(label);
+        form.appendChild(input);
+        form.appendChild(span);
+        main.appendChild(form);
+    }
+
     function startButtonClicked() {
         initPlayers();
         loadSecondPage();
     }
 
-    function createMainContent() {
+    function createStartGameButton() {
         const main = document.querySelector("main");
         const startButton = makeButton({ textContent: "Start Game", event: "click", title: "start game button", callBackFunction: [startButtonClicked] });
         main.appendChild(startButton);
@@ -65,7 +80,8 @@ const firstPage = (function initFirstPage() {
         makeHeader();
         makeHeaderContent();
         makeMain();
-        createMainContent();
+        makeForm();
+        createStartGameButton();
         makeFooter();
         createFooterContent();
     }
