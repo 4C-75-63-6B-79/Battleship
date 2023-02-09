@@ -32,7 +32,7 @@ const firstPage = (function initFirstPage() {
 
     function createMainContent() {
         const main = document.querySelector("main");
-        const startButton = makeButton({ textContent: "Start Game", event: "click", callBackFunction: [startButtonClicked] });
+        const startButton = makeButton({ textContent: "Start Game", event: "click", title: "start game button", callBackFunction: [startButtonClicked] });
         main.appendChild(startButton);
     }
 
