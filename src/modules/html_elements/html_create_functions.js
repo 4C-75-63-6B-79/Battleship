@@ -64,10 +64,10 @@ function makeImg({id, src, title}) {
 function makeGrid(callBackFunctions) {
     const gridContainer = makeElement({classNames: "gridContainer" });
 
-    gridContainer.style.display = "grid";
-    gridContainer.style.gridTemplateRows = "repeat(10, 30px)";
-    gridContainer.style.gridTemplateColumns = "repeat(10, 30px)";
-    gridContainer.style.gap = "5px";
+    // gridContainer.style.display = "grid";
+    // gridContainer.style.gridTemplateRows = "repeat(10, 30px)";
+    // gridContainer.style.gridTemplateColumns = "repeat(10, 30px)";
+    // gridContainer.style.gap = "5px";
 
     for(let i=0; i<10; i += 1) {
         for(let j=0; j<10; j += 1) {
