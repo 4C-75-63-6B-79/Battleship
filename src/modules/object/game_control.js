@@ -6,7 +6,7 @@ const gameControl = (function gameControl() {
     let player2;
 
     function initPlayers() {
-        player1 = new Player("user");
+        player1 = new Player("Chief");
         player2 = new Player("computer");
     }
 
