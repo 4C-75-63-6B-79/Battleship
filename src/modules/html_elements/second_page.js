@@ -119,6 +119,15 @@ const secondPage = (function initSecondPage() {
         return boxesHaveShipPlaced;
     }
 
+    function addCurrentShipImage(clickedBox) {
+        const currentBox = clickedBox;
+        const currentAxis = document.querySelector("button[data-currentAxis]").getAttribute("data-currentAxis");
+        clickedBox.classList.add(`${currentShip.getName()}`);
+        if(currentAxis === "y") {
+            currentBox.style.transform = "rotateZ(90deg)";
+        }
+    }
+
     function mouseOverBox(event) {
         const box = event.target;
         const currentBoxCoordinates = box.getAttribute("data-coordinates");
@@ -164,6 +173,7 @@ const secondPage = (function initSecondPage() {
 
         if(isCurrentBoxValidForShip(clickedBox)) {
             changeBoxesClass("shipPlacedOnBox", currentBoxCoordinates);
+            addCurrentShipImage(clickedBox);
             const coordinates = getCoordinates(currentBoxCoordinates);
             removeEventListenerFormBoxes(coordinates);
             changeTitleBoxes(coordinates);
