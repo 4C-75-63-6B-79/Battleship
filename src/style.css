@@ -163,6 +163,60 @@ h2 {
     background-color: lightskyblue;
 }
 
+.carrier,
+.battleship,
+.cruiser,
+.destroyer,
+.submarine {
+    position: relative;
+}
+
+.carrier::before,
+.battleship::before,
+.cruiser::before,
+.destroyer::before,
+.submarine::before {
+    position: absolute;
+    content: '';
+    z-index: 2;
+    top: -1px;
+    left: -1px;
+    height: 35px;
+    border: 1px solid red;
+    background-repeat: no-repeat;
+    transform-origin: 17.5px 17.5px;
+}
+
+.carrier::before {
+    width: 195px;
+    background-image: url(./assets/images/carrier.svg);
+    background-size: 195px 35px;
+}
+
+.battleship::before {
+    width: 155px;
+    background-image: url(./assets/images/battleship.svg);
+    background-size: 155px 35px;
+}
+
+.cruiser::before {
+    width: 115px;
+    background-image: url(./assets/images/cruiser.svg);
+    background-size: 115px 35px;
+}
+
+.submarine::before {
+    width: 115px;
+    background-image: url(./assets/images/submarine.svg);
+    background-size: 115px 35px;
+}
+
+.destroyer::before {
+    width: 75px;
+    background-image: url(./assets/images/destroyer.svg);
+    background-size: 75px 35px;
+}
+
 #statusBox {
     padding: 0.4rem 0.5rem;
 }
@@ -232,3 +286,22 @@ footer > div {
     align-items: center;
     gap: 10px;
 }
+
+/* .box[data-coordinates='32'] {
+    position: relative;
+    background-color: blue;
+}
+
+.box[data-coordinates='32']::before {
+    position: absolute;
+    content: '';
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 35px;
+    width: 115px;
+    border: 2px solid red;
+    background-image: url(./assets/images/ship.svg);
+    transform-origin: 17.5px 17.5px;
+    transform: rotateZ(90deg);
+} */
