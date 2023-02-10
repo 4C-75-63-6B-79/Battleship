@@ -184,6 +184,7 @@ h2 {
     height: 35px;
     border: 1px solid red;
     background-repeat: no-repeat;
+    opacity: 0.55;
     transform-origin: 17.5px 17.5px;
 }
 
