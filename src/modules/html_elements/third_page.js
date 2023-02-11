@@ -42,7 +42,11 @@ const thirdPage = (function initThirdPage() {
         const waterContainer = makeElement({id: "waterContainer"});
         
         const friendlyWater = makeElement({id: "friendlyWater", classNames: "water"});
+        const friendlyWaterShipIndicatorContainer = makeShipIndicatorConatiner();
+        friendlyWater.appendChild(friendlyWaterShipIndicatorContainer);
         const enemyWater = makeElement({id: "enemyWater", classNames: "water"});
+        const enemyWaterShipIndicatorContainer = makeShipIndicatorConatiner();
+        friendlyWater.appendChild(enemyWaterShipIndicatorContainer);
 
         waterContainer.appendChild(friendlyWater);
         waterContainer.appendChild(enemyWater);
