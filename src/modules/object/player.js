@@ -36,6 +36,11 @@ Player.prototype.markAttack = function markAttack(otherPlayerShipHit, coord) {
     }
 }
 
+Player.prototype.getShipsThatAreHit = function getShipsThatAreHit() {
+    const shipThatAreHit = Object.keys(this.ships).filter( key => this.ships[key].hitCount > 0);
+    return shipThatAreHit;
+}
+
 Player.prototype.isNewShipSunk = function isNewShipSunk() {
     const sunkShip = Object.keys(this.ships).find(key => this.ships[key].isSunk());
     if(sunkShip) {
