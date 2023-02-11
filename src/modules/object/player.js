@@ -28,6 +28,7 @@ Player.prototype.receiveAttack = function receiveAttack(coord) {
 }
 
 Player.prototype.markAttack = function markAttack(otherPlayerShipHit, coord) {
+    this.enemyWater.updateAttackDetails(otherPlayerShipHit);
     if(otherPlayerShipHit) {
         this.enemyWater.markHit(coord);
     } else {
