@@ -21,6 +21,22 @@ const thirdPage = (function initThirdPage() {
         main.appendChild(statusBox);
     }
 
+    function makeShipIndicatorConatiner() {
+        const shipIndicatorConatiner = makeElement({id: "shipIndicatorContainer"});
+
+        const ships = ["carrier", "battleship", "curiser", "submarine", "destroyer"];
+
+        ships.forEach( ship => {
+            const shipIndicator  = makeElement({classNames: "shipStatusIndicator", title: `${ship} is active`, dataAttributeName: "shipName", dataAttributeValue: ship});
+            const shipName = makeElement({elementType: "h4", textContent: ship})
+            const indicatorLight = makeElement({classNames: "indicatorLight shipActive"});
+            shipIndicator.appendChild(shipName);
+            shipIndicator.appendChild(indicatorLight);
+            shipIndicatorConatiner.appendChild(shipIndicator);
+        });
+        return makeShipIndicatorConatiner;
+    }
+
     function makeWaterContainers() {
         const main = document.querySelector("main");
         const waterContainer = makeElement({id: "waterContainer"});
