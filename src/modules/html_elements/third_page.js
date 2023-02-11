@@ -123,8 +123,18 @@ const thirdPage = (function initThirdPage() {
         if(!isNewShipSunk) return;
         const water = name === "computer" ? "friendlyWater" : "enemyWater";
         const indicatorLight = document.querySelector(`#${water}>#shipIndicatorContainer>div[data-shipname=${isNewShipSunk.name}]>div`);
-        indicatorLight.classList.remove("shipActive");
+        indicatorLight.classList.remove("shipHit");
         indicatorLight.classList.add("shipLost");
+    }
+
+    function updateIndicatorBlinkingLight(hitDetails) {
+        const {shipsThatAreHit} = hitDetails;
+        if(shipsThatAreHit.length === 0) return;
+        shipsThatAreHit.forEach( shipName => {
+            const indicatorLight = document.querySelector(`#friendlyWater>#shipIndicatorContainer>div[data-shipname=${shipName}]>div`);
+            indicatorLight.classList.remove("shipActive");
+            indicatorLight.classList.add("shipHit");
+        });
     }
     
     function mainGameControl(attackedCoordinates) {  // called when user makea a move with the coords
@@ -136,6 +146,7 @@ const thirdPage = (function initThirdPage() {
         hitDetails = playerComputerMakesMove();
         updateFriendlyWater(hitDetails);
         updateMessageBox(hitDetails);
+        updateIndicatorBlinkingLight(hitDetails);
         updateIndicatorLightOfShipSunk(hitDetails);
         checkWinner(hitDetails);
     }
