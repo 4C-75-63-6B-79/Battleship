@@ -24,7 +24,7 @@ const thirdPage = (function initThirdPage() {
     function makeShipIndicatorConatiner() {
         const shipIndicatorConatiner = makeElement({id: "shipIndicatorContainer"});
 
-        const ships = ["carrier", "battleship", "curiser", "submarine", "destroyer"];
+        const ships = ["carrier", "battleship", "cruiser", "submarine", "destroyer"];
 
         ships.forEach( ship => {
             const shipIndicator  = makeElement({classNames: "shipStatusIndicator", title: `${ship} is active`, dataAttributeName: "shipName", dataAttributeValue: ship});
@@ -81,7 +81,6 @@ const thirdPage = (function initThirdPage() {
 
     function checkWinner({isWinner, name}) {
         if(isWinner) {
-            console.log(name);
             loadFourthPage(name);
             return true;
         }
@@ -118,15 +117,26 @@ const thirdPage = (function initThirdPage() {
         const newP = makeElement({elementType: "p", textContent, title: textContent});
         messageBox.appendChild(newP);
     }
+
+    function updateIndicatorLightOfShipSunk(hitDetails) {
+        const {name, isNewShipSunk} = hitDetails;
+        if(!isNewShipSunk) return;
+        const water = name === "computer" ? "friendlyWater" : "enemyWater";
+        const indicatorLight = document.querySelector(`#${water}>#shipIndicatorContainer>div[data-shipname=${isNewShipSunk.name}]>div`);
+        indicatorLight.classList.remove("shipActive");
+        indicatorLight.classList.add("shipLost");
+    }
     
     function mainGameControl(attackedCoordinates) {  // called when user makea a move with the coords
         let hitDetails = playerUserMakesMove(attackedCoordinates);
         updateEnemyWater(hitDetails);
         updateMessageBox(hitDetails);
+        updateIndicatorLightOfShipSunk(hitDetails);
         if(checkWinner(hitDetails)) return;
         hitDetails = playerComputerMakesMove();
         updateFriendlyWater(hitDetails);
         updateMessageBox(hitDetails);
+        updateIndicatorLightOfShipSunk(hitDetails);
         checkWinner(hitDetails);
     }
 
