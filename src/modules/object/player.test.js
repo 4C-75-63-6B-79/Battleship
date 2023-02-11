@@ -47,6 +47,16 @@ test("function allShipSunk returns false when all ships are not sunk", () => {
     expect(testPlayer.allShipSunk()).toBe(false);
 });
 
+test("function getShipThatAreHit returns an array of all the ships that are hit and not sunk", () => {
+    const testPlayer = new Player("name");
+    testPlayer.placeShip("destroyer", [[0,0], [0,1]]);
+    testPlayer.receiveAttack([0,1])
+    const testShipThatAreHit = testPlayer.getShipsThatAreHit();
+    expect(Array.isArray(testShipThatAreHit)).toBe(true);
+    expect(testShipThatAreHit.length).toBe(1);
+    expect(testShipThatAreHit[0]).toBe("destroyer");
+});
+
 test("function isNewShipSunk returns false if no new ship sunk", () => {
     const testPlayer = new Player("name");
     expect(testPlayer.isNewShipSunk()).toBe(false);
