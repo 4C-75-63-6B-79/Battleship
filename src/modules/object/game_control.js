@@ -98,8 +98,8 @@ const gameControl = (function gameControl() {
             ["cruiser", 3],
             ["submarine", 3],
             ["destroyer", 2],
-         ];
-         ships.forEach(ship => placeShip(ship[0], ship[1]));
+        ];
+        ships.forEach(ship => placeShip(ship[0], ship[1]));
     }
 
     function placeComputerShips() {
