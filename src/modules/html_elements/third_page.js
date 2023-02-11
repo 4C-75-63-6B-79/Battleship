@@ -34,7 +34,7 @@ const thirdPage = (function initThirdPage() {
             shipIndicator.appendChild(indicatorLight);
             shipIndicatorConatiner.appendChild(shipIndicator);
         });
-        return makeShipIndicatorConatiner;
+        return shipIndicatorConatiner;
     }
 
     function makeWaterContainers() {
