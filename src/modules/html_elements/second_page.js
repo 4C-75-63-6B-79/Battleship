@@ -7,13 +7,7 @@ import loadThirdPage  from "./third_page";
 const secondPage = (function initSecondPage() {
 
     const currentShip = (function initShip() {
-        const ships = [
-            {name: "destroyer", len: 2},
-            {name: "cruiser", len: 3},
-            {name: "submarine", len: 3},
-            {name: "battleship", len: 4},
-            {name: "carrier", len: 5}
-        ];
+        const ships = [];
         let name; let len;
         function updateShip() {
             const ship = ships.pop();
@@ -22,12 +16,22 @@ const secondPage = (function initSecondPage() {
             len = ship.len;
             return false;
         }
+        function initShipsArray() {
+            if(ships.length === 0) ships.push(
+                {name: "destroyer", len: 2},
+                {name: "cruiser", len: 3},
+                {name: "submarine", len: 3},
+                {name: "battleship", len: 4},
+                {name: "carrier", len: 5}
+            );
+        }
         function getName() { return name; }
         function geLength() { return len; }
         return {
+            initShipsArray,
             updateShip,
             getName,
-            geLength
+            geLength,
         }
     })();
 
@@ -195,6 +199,7 @@ const secondPage = (function initSecondPage() {
     function loadSecondPage() {
         removeClassFromHeader();
         removeAllContentMain();
+        currentShip.initShipsArray();
         currentShip.updateShip();
         makeShipToBePlacedHeader();
         makeAxisChoiceButton();
