@@ -54,6 +54,8 @@ const thirdPage = (function initThirdPage() {
         const friendlyWater = document.getElementById("friendlyWater");
         const title = makeElement({elementType: "h2", textContent: "Friendly Waters", title: "Friendly Waters"});
         friendlyWater.appendChild(title);
+        const friendlyWaterShipIndicatorContainer = makeShipIndicatorConatiner();
+        friendlyWater.appendChild(friendlyWaterShipIndicatorContainer);
         friendlyWater.appendChild(friendlyWaterGird);
     }
 
@@ -142,6 +144,8 @@ const thirdPage = (function initThirdPage() {
         const enemyWater = document.getElementById("enemyWater");
         const title = makeElement({elementType: "h2", textContent: "Enemy Waters", title: "Enemy Waters"});
         enemyWater.appendChild(title);
+        const enemyWaterShipIndicatorContainer = makeShipIndicatorConatiner();
+        enemyWater.appendChild(enemyWaterShipIndicatorContainer);
 
         const grid = makeGrid([mouseOver, mouseOut, boxClicked]);
         enemyWater.appendChild(grid);
