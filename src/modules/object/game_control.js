@@ -19,6 +19,7 @@ const gameControl = (function gameControl() {
         player1.markAttack(isPlayerHit, coord);
         const shipsThatAreHit = player2.getShipsThatAreHit();
         const isNewShipSunk = player2.isNewShipSunk();
+        player1.removeEnemyShipLength(isNewShipSunk);
         const isWinner = player2.allShipSunk();
         return {
             name: player1.name,
@@ -36,6 +37,7 @@ const gameControl = (function gameControl() {
         player2.markAttack(isPlayerHit, coord);
         const shipsThatAreHit = player1.getShipsThatAreHit();
         const isNewShipSunk = player1.isNewShipSunk();
+        player2.removeEnemyShipLength(isNewShipSunk);
         const isWinner = player1.allShipSunk();
         return {
             name: player2.name,
