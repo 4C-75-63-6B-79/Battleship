@@ -6,6 +6,7 @@ export default function EnemyWater() {
         xCoord: [],
         yCoord: [],
     }
+    this.shipLength = [2,3,3,4,5];
 }
 
 EnemyWater.prototype.makeAttack = function makeAttack() {
@@ -69,6 +70,14 @@ EnemyWater.prototype.markHit = function markHit(coords) {
         this.board[coords[0]][coords[1]] = 1;
     }
 } 
+
+EnemyWater.prototype.removeShipLenght = function removeShipLenght(shipLengthToRemove) {
+    const index = this.shipLength.indexOf(shipLengthToRemove);
+    if(index !== -1) {
+        return this.shipLength.splice(index, 1)[0];
+    }
+    return false;
+}
 
 EnemyWater.prototype.markMiss = function markMiss(coords) {
     if(this.board[coords[0]][coords[1]] === -1) {
