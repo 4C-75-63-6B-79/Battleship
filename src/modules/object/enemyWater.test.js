@@ -23,3 +23,13 @@ test("function markmiss marks the coordinates sent as 0 if the coordinates were 
     testEnemyWater.markMiss(coords);
     expect(testEnemyWater.board[coords[0]][coords[1]]).toBe(0);
 });
+
+test("function removeShipLength removes the value with the length of the ship which is sunk from the shiplength array and returns that value", () => {
+    const testEnemyWater = new EnemyWater();
+    expect(testEnemyWater.removeShipLenght(3)).toBe(3);
+});
+
+test("function removeShipLength returns false if the length of the ship to be removed is not in the shiplength array", () => {
+    const testEnemyWater = new EnemyWater();
+    expect(testEnemyWater.removeShipLenght(6)).toBe(false);
+});
