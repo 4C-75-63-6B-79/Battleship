@@ -36,6 +36,11 @@ Player.prototype.markAttack = function markAttack(otherPlayerShipHit, coord) {
     }
 }
 
+Player.prototype.removeEnemyShipLength = function removeEnemyShipLength(ship) {
+    if(Object.prototype.isPrototypeOf.call(Ship.prototype, ship)) return this.enemyWater.removeShipLenght(ship.len);
+    return false;
+}
+
 Player.prototype.getShipsThatAreHit = function getShipsThatAreHit() {
     const shipThatAreHit = Object.keys(this.ships).filter( key => this.ships[key].hitCount > 0);
     return shipThatAreHit;
