@@ -7,6 +7,7 @@ export default function EnemyWater() {
         yCoord: [],
     }
     this.shipLength = [2,3,3,4,5];
+    this.percentFill = 45;
 }
 
 EnemyWater.prototype.makeAttack = function makeAttack() {
@@ -14,7 +15,7 @@ EnemyWater.prototype.makeAttack = function makeAttack() {
         return [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
     }
 
-    const isHalfFilled = (function initHalfFilled() {
+    const isPercentFilled = (function initPercentFilled() {
         let isFilled = false;
 
         return function countFilled() {
@@ -26,7 +27,7 @@ EnemyWater.prototype.makeAttack = function makeAttack() {
                     if(element !== null) count += 1;
                 });
             });
-            if(count > 40) isFilled = true;
+            if(count > this.percentFill) isFilled = true;
             return isFilled;
         }
     })();
@@ -79,7 +80,7 @@ EnemyWater.prototype.makeAttack = function makeAttack() {
             lastCoord = coords;
             lastDirection = lastDirection === "x" ? "y" : "x";
         }
-    } else if(isHalfFilled.call(this)){
+    } else if(isPercentFilled.call(this)){
         const longestShipLeftOnEnemyWater = this.shipLength[this.shipLength.length-1];
         coords = getTheEmptyBoxWithLength.call(this, longestShipLeftOnEnemyWater);
         lastCoord = coords;
@@ -98,7 +99,6 @@ EnemyWater.prototype.makeAttack = function makeAttack() {
     this.xCoord = xCoord;
     this.yCoord = yCoord;
     this.board[coords[0]][coords[1]] = -1;
-    console.log(isHalfFilled.call(this));
     return coords;
 }
 
