@@ -13,6 +13,23 @@ EnemyWater.prototype.makeAttack = function makeAttack() {
         return [Math.floor(Math.random()*10), Math.floor(Math.random()*10)];
     }
 
+    const isHalfFilled = (function initHalfFilled() {
+        let isFilled = false;
+
+        return function countFilled() {
+            if(isFilled) return isFilled;
+
+            let count = 0;
+            this.board.forEach( row => {
+                row.forEach( element => {
+                    if(element !== null) count += 1;
+                });
+            });
+            if(count > 50) isFilled = true;
+            return isFilled;
+        }
+    })();
+
     let {lastCoord, lastDirection} = this.attackDetails;
     const {xCoord, yCoord} = this.attackDetails;
     let coords;
@@ -43,6 +60,7 @@ EnemyWater.prototype.makeAttack = function makeAttack() {
     this.xCoord = xCoord;
     this.yCoord = yCoord;
     this.board[coords[0]][coords[1]] = -1;
+    console.log(isHalfFilled.call(this));
     return coords;
 }
 
