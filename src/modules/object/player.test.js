@@ -40,7 +40,26 @@ test("markAttack function marks the enemy water gird with 0 if not success hit",
     const attackCoord = testPlayer.makeAttack();
     testPlayer.markAttack(false, attackCoord);
     expect(testPlayer.enemyWater.board[attackCoord[0]][attackCoord[1]]).toBe(0);
-})
+});
+
+test("removeEnemyShipLength function removes the length of the ship form the enemyWater which is sunk on enemy board and returns that length", () => {
+    const testPlayer = new Player("name");
+    const ship = new Ship("carrier", 5);
+    expect(testPlayer.removeEnemyShipLength(ship)).toBe(ship.len);
+});
+
+test("removeEnemyShipLength function returns false if the parameter passed to it is not a ship", () => {
+    const testPlayer = new Player("name");
+    expect(testPlayer.removeEnemyShipLength(5)).toBe(false);
+});
+
+test("removeEnemyShipLength function returns false if no shipLength provided as parameter present in enemyWater", () => {
+    const testPlayer = new Player("name");
+    const ship = new Ship("carrier", 5);
+    expect(testPlayer.removeEnemyShipLength(ship)).toBe(ship.len);
+    expect(testPlayer.removeEnemyShipLength(ship)).toBe(false);
+});
+
 
 test("function allShipSunk returns false when all ships are not sunk", () => {
     const testPlayer = new Player("name");
