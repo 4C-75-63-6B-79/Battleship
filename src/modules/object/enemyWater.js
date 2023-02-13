@@ -26,10 +26,42 @@ EnemyWater.prototype.makeAttack = function makeAttack() {
                     if(element !== null) count += 1;
                 });
             });
-            if(count > 50) isFilled = true;
+            if(count > 40) isFilled = true;
             return isFilled;
         }
     })();
+
+    function getTheEmptyBoxWithLength(longestShipLeftOnEnemyWater) {
+        let emptyBoxCount = 0;
+        for(let i=0; i<this.board.length; i += 1) {
+            emptyBoxCount = 0;
+            for(let j=0; j<this.board[i].length; j += 1) {
+                if(this.board[i][j] === null) {
+                    emptyBoxCount += 1;
+                } else {
+                    emptyBoxCount = 0;
+                }
+                if(longestShipLeftOnEnemyWater === emptyBoxCount) {
+                    return [i, j];
+                }
+            }
+        }
+        let coords;
+        for(let i=0; i<this.board.length; i += 1) {
+            emptyBoxCount = 0;
+            for(let j=0; j<this.board[i].length; j += 1) {
+                if(this.board[j][i] === null) {
+                    emptyBoxCount += 1;
+                } else {
+                    emptyBoxCount = 0;
+                }
+                if(longestShipLeftOnEnemyWater === emptyBoxCount) {
+                    coords = [j, i];
+                }
+            }
+        }
+        return coords;
+    }
 
     let {lastCoord, lastDirection} = this.attackDetails;
     const {xCoord, yCoord} = this.attackDetails;
@@ -47,6 +79,11 @@ EnemyWater.prototype.makeAttack = function makeAttack() {
             lastCoord = coords;
             lastDirection = lastDirection === "x" ? "y" : "x";
         }
+    } else if(isHalfFilled.call(this)){
+        const longestShipLeftOnEnemyWater = this.shipLength[this.shipLength.length-1];
+        coords = getTheEmptyBoxWithLength.call(this, longestShipLeftOnEnemyWater);
+        lastCoord = coords;
+        lastDirection = null;
     } else {
         coords = getRandomCoords();
         while(this.board[coords[0]][coords[1]] !== null) {
